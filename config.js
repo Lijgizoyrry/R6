@@ -9,6 +9,6 @@
 // Ne mets JAMAIS ici la clé « secret » ou « service_role ».
 
 window.R6_CONFIG = {
-  SUPABASE_URL: "https://urrzzcwkwbfvjtajwfmd.supabase.com",
+  SUPABASE_URL: "https://urrzzcwkwbfvjtajwfmd.supabase.co",
   SUPABASE_KEY: "sb_publishable_W5DvoJDVnVfOOPQ5XJ6DtA_nXwbR9PD"
 };
