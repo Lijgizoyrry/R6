@@ -1,0 +1,2250 @@
+<!doctype html>
+<html lang="fr" data-side="none">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06070b">
+  <meta name="color-scheme" content="dark">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Playbook">
+  <meta name="description" content="Ta base perso de stratégies Rainbow Six Siege : carte, camp, BP, vidéo.">
+  <title>R6 Playbook</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://i.ytimg.com">
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <script src="config.js"></script>
+  <style>
+    /* ═══════════════════════════ TOKENS ═══════════════════════════ */
+    @property --fa { syntax: '<color>'; inherits: true; initial-value: #6e6af0; }
+    @property --fb { syntax: '<color>'; inherits: true; initial-value: #2a2f7a; }
+    @property --fc { syntax: '<color>'; inherits: true; initial-value: #8a5cf6; }
+
+    :root {
+      color-scheme: dark;
+      --void: #06070b;
+      --frost: #f4f6fa;
+      --t2: rgba(232, 236, 245, .66);
+      --t3: rgba(232, 236, 245, .42);
+      --line: rgba(255, 255, 255, .11);
+      --line-2: rgba(255, 255, 255, .2);
+      --fill: rgba(255, 255, 255, .055);
+      --fill-2: rgba(255, 255, 255, .09);
+      --amber: #ff8a1f; --amber-hi: #ffc46b;
+      --signal: #2e8bff; --signal-hi: #7cc4ff;
+      --graphite: #6e6af0;
+      --alert: #ff5a4e; --ok: #3ddc84;
+      --accent: #a9a6ff; --accent-hi: #d4d2ff;
+      --fa: #6e6af0; --fb: #2a2f7a; --fc: #8a5cf6;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+      --spring: cubic-bezier(.3, 1.35, .5, 1);
+      --st: env(safe-area-inset-top, 0px);
+      --sb: env(safe-area-inset-bottom, 0px);
+      --gx: max(16px, env(safe-area-inset-left, 0px));
+      --gxr: max(16px, env(safe-area-inset-right, 0px));
+      --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI Variable Display", "Segoe UI", Roboto, system-ui, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", system-ui, sans-serif;
+      font-size: 16px;
+      transition: --fa 1s var(--ease), --fb 1s var(--ease), --fc 1s var(--ease);
+    }
+    html[data-side="attack"] { --accent: var(--amber); --accent-hi: var(--amber-hi); --fa: #ff7a12; --fb: #6e2405; --fc: #ffb347; }
+    html[data-side="defense"] { --accent: var(--signal); --accent-hi: var(--signal-hi); --fa: #1f7bff; --fb: #0b2a6e; --fc: #5ac8fa; }
+
+    /* ═══════════════════════════ BASE ═══════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    [hidden] { display: none !important; }
+    html { background: var(--void); }
+    html, body { margin: 0; color: var(--frost); }
+    body { min-height: 100dvh; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; overscroll-behavior-y: none; }
+    html.lock, html.lock body { overflow: hidden; }
+    button { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; text-align: inherit; }
+    input, textarea, select { font: inherit; color: inherit; margin: 0; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    svg.i { flex: none; display: block; }
+    :focus-visible { outline: 3px solid color-mix(in oklab, var(--accent) 75%, white 10%); outline-offset: 2px; border-radius: 12px; }
+    code { font: 500 .9em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; padding: 2px 6px; border-radius: 6px; background: rgba(255, 255, 255, .09); }
+
+    /* ═══════════════════════ CHAMP LUMINEUX ═══════════════════════ */
+    .field { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: var(--void); }
+    .field i, .field b { position: absolute; display: block; }
+    .field i { border-radius: 50%; will-change: transform; }
+    .field .f1 { width: 95vmax; height: 95vmax; left: -38vmax; top: -50vmax; background: radial-gradient(closest-side, color-mix(in oklab, var(--fa) 58%, transparent), transparent); animation: float1 28s ease-in-out infinite alternate; }
+    .field .f2 { width: 80vmax; height: 80vmax; right: -42vmax; top: -12vmax; background: radial-gradient(closest-side, color-mix(in oklab, var(--fb) 70%, transparent), transparent); animation: float2 34s ease-in-out infinite alternate; }
+    .field .f3 { width: 76vmax; height: 76vmax; left: 6vmax; bottom: -56vmax; background: radial-gradient(closest-side, color-mix(in oklab, var(--fc) 30%, transparent), transparent); animation: float3 31s ease-in-out infinite alternate; }
+    .field .shade { inset: 0; background: linear-gradient(180deg, rgba(6, 7, 11, 0) 0%, rgba(6, 7, 11, .35) 48%, rgba(6, 7, 11, .82) 100%); }
+    .field .flash { inset: 0; opacity: 0; background: radial-gradient(90% 60% at 50% -5%, color-mix(in oklab, var(--accent) 55%, transparent), transparent 70%); }
+    .field.flood .flash { animation: flash 1.2s var(--ease); }
+    .field .grain { inset: 0; opacity: .07; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    @keyframes float1 { to { transform: translate3d(6vmax, 4vmax, 0) scale(1.08); } }
+    @keyframes float2 { to { transform: translate3d(-7vmax, 6vmax, 0) scale(1.05); } }
+    @keyframes float3 { to { transform: translate3d(5vmax, -5vmax, 0) scale(1.1); } }
+    @keyframes flash { 0% { opacity: 0; } 22% { opacity: 1; } 100% { opacity: 0; } }
+
+    /* ═══════════════════════════ BARRE ═══════════════════════════ */
+    .bar { position: fixed; z-index: 40; top: 0; left: 0; right: 0; padding: calc(var(--st) + 6px) var(--gxr) 8px var(--gx); pointer-events: none; }
+    .bar::before { content: ""; position: absolute; inset: 0; background: rgba(8, 9, 14, .55); -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%); border-bottom: 1px solid var(--line); opacity: 0; transition: opacity .25s var(--ease); }
+    .bar.solid::before { opacity: 1; }
+    .bar-in { position: relative; max-width: 1180px; margin: 0 auto; height: 44px; display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; gap: 10px; }
+    .bar-in > button { pointer-events: auto; }
+    .bar-title { text-align: center; font-weight: 600; font-size: 17px; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0; transform: translateY(4px); transition: opacity .2s, transform .25s var(--ease); }
+    .bar.solid .bar-title { opacity: 1; transform: none; }
+    .circle { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--frost); position: relative; flex: none; }
+    .glass-btn { background: linear-gradient(180deg, rgba(255, 255, 255, .15), rgba(255, 255, 255, .05)); border: 1px solid var(--line-2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .24), 0 6px 18px -8px rgba(0, 0, 0, .6); -webkit-backdrop-filter: blur(18px) saturate(180%); backdrop-filter: blur(18px) saturate(180%); transition: transform .2s var(--spring), background .2s, opacity .2s, visibility .2s; }
+    .glass-btn:active { transform: scale(.9); }
+    @media (hover: hover) { .glass-btn:hover { background: linear-gradient(180deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, .08)); } }
+    #bar-back.off { opacity: 0; visibility: hidden; transform: scale(.8); }
+    html.no-config #bar-account { visibility: hidden; }
+    html.is-admin #bar-account::after { content: ""; position: absolute; top: 6px; right: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 2px var(--void); }
+
+    /* ═══════════════════════════ PAGE ═══════════════════════════ */
+    .app { max-width: 1180px; margin: 0 auto; min-height: 100dvh; padding: calc(var(--st) + 68px) var(--gxr) calc(var(--sb) + 48px) var(--gx); }
+    .view.fwd { animation: inFwd .32s var(--ease) both; }
+    .view.back { animation: inBack .32s var(--ease) both; }
+    @keyframes inFwd { from { opacity: 0; transform: translate3d(24px, 0, 0); } }
+    @keyframes inBack { from { opacity: 0; transform: translate3d(-24px, 0, 0); } }
+    .head { margin: 2px 0 20px; }
+    .title { margin: 0; font: 700 clamp(34px, 8.6vw, 56px)/1.04 var(--display); letter-spacing: -.032em; text-wrap: balance; overflow-wrap: anywhere; }
+    .lede { margin: 10px 0 0; font-size: 17px; line-height: 1.35; color: var(--t2); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .sd { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: none; }
+    .sd.attack { background: var(--amber); box-shadow: 0 0 12px var(--amber); }
+    .sd.defense { background: var(--signal); box-shadow: 0 0 12px var(--signal); }
+    .crumbs { margin-bottom: 14px !important; }
+    .crumb { flex: none; height: 34px; padding: 0 13px; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 550; color: var(--t2); background: var(--fill); border: 1px solid var(--line); white-space: nowrap; transition: background .2s, color .2s; }
+    @media (hover: hover) { .crumb:hover { color: var(--frost); background: var(--fill-2); } }
+    .hscroll { display: flex; gap: 8px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; margin: 0 calc(-1 * var(--gxr)) 0 calc(-1 * var(--gx)); padding: 2px var(--gxr) 4px var(--gx); }
+    .hscroll::-webkit-scrollbar { display: none; }
+    .section-label { margin: 0 0 9px; font-size: 15px; font-weight: 600; color: var(--t2); }
+    .notice { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; padding: 11px 14px; border-radius: 16px; font-size: 14px; line-height: 1.35; color: var(--t2); background: color-mix(in oklab, var(--alert) 10%, transparent); border: 1px solid color-mix(in oklab, var(--alert) 28%, transparent); }
+    .notice svg { color: #ff8a80; }
+    .notice button { margin-left: auto; flex: none; font-weight: 600; color: var(--frost); padding: 6px 4px; }
+    .admin-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+    .empty-line { color: var(--t2); margin: 18px 0; }
+
+    /* ═══════════════════════ CONTRÔLES ═══════════════════════ */
+    .btn { height: 48px; padding: 0 20px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 16px; font-weight: 600; letter-spacing: -.005em; white-space: nowrap; transition: transform .2s var(--spring), background .2s, opacity .2s, color .2s; }
+    .btn:active { transform: scale(.96); }
+    .btn:disabled, .btn.busy { opacity: .55; pointer-events: none; }
+    .btn-primary { background: var(--frost); color: #07080c; }
+    .btn-accent { background: var(--accent); color: #07080c; }
+    .btn-glass { background: var(--fill-2); color: var(--frost); border: 1px solid var(--line-2); }
+    .btn-danger { background: color-mix(in oklab, var(--alert) 15%, transparent); color: #ff8f86; border: 1px solid color-mix(in oklab, var(--alert) 32%, transparent); }
+    .btn-danger.armed { background: var(--alert); color: #fff; }
+    .btn-sm { height: 40px; padding: 0 15px; font-size: 15px; }
+    .btn-block { width: 100%; }
+    .input, .select, .textarea { width: 100%; min-height: 48px; padding: 12px 14px; border-radius: 14px; background: rgba(255, 255, 255, .07); border: 1px solid var(--line); color: var(--frost); font-size: 16px; outline: none; -webkit-appearance: none; appearance: none; transition: border-color .2s, background .2s, box-shadow .2s; }
+    .input::placeholder, .textarea::placeholder { color: var(--t3); }
+    .input:focus, .select:focus, .textarea:focus { border-color: color-mix(in oklab, var(--accent) 70%, white 15%); box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 22%, transparent); background: rgba(255, 255, 255, .1); outline: none; }
+    .select { padding-right: 38px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a3a8b8' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 13px center; background-size: 15px; text-overflow: ellipsis; }
+    .select option { background: #1b1c22; color: var(--frost); }
+    .textarea { min-height: 96px; resize: vertical; line-height: 1.45; }
+    input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
+    .search { position: relative; display: block; margin: 0 0 18px; }
+    .search svg { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--t3); pointer-events: none; }
+    .search .input { padding-left: 44px; border-radius: 16px; }
+    .kbd { display: none; }
+    @media (hover: hover) and (pointer: fine) {
+      .kbd { display: inline-grid; place-items: center; flex: none; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 7px; font-family: inherit; font-size: 12px; font-weight: 650; line-height: 1; color: var(--t3); border: 1px solid var(--line-2); background: rgba(255, 255, 255, .04); font-variant-numeric: tabular-nums; }
+    }
+
+    /* ═══════════════════════ RÉCENTS ═══════════════════════ */
+    .recents { margin: 0 0 22px; }
+    .recent { flex: none; min-height: 54px; max-width: 76vw; padding: 8px 16px 8px 13px; border-radius: 18px; display: inline-flex; align-items: center; gap: 11px; text-align: left; background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .03)); border: 1px solid var(--line); transition: transform .2s var(--spring); }
+    .recent:active { transform: scale(.97); }
+    .recent .rtx { display: grid; min-width: 0; line-height: 1.2; }
+    .recent small { font-size: 12.5px; color: var(--t2); }
+    .recent span span { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* ═══════════════════════ CARTES ═══════════════════════ */
+    .maps { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+    @media (min-width: 760px) { .maps { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; } }
+    .tile { position: relative; display: block; width: 100%; aspect-ratio: 4 / 3; border-radius: 26px; overflow: hidden; isolation: isolate; color: var(--frost); background: rgba(12, 14, 22, .42); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 14px 34px -22px rgba(0, 0, 0, .8); transition: transform .25s var(--spring), border-color .2s; }
+    .tile:active { transform: scale(.97); }
+    @media (hover: hover) { .tile:hover { border-color: var(--line-2); transform: translateY(-2px); } }
+    .tile .art { position: absolute; inset: 0; z-index: -2; background: radial-gradient(110% 90% at 0% 0%, hsl(var(--h) 58% 55% / .42), transparent 62%), radial-gradient(90% 80% at 100% 100%, hsl(calc(var(--h) + 45) 62% 48% / .26), transparent 66%), linear-gradient(160deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .015)); }
+    .tile .cover { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+    .tile::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 38%, rgba(0, 0, 0, .58)); }
+    .tile .nm { position: absolute; left: 14px; right: 14px; bottom: 12px; font: 700 19px/1.1 var(--display); letter-spacing: -.02em; text-wrap: balance; text-shadow: 0 1px 12px rgba(0, 0, 0, .35); }
+    .tile .ct { position: absolute; top: 10px; right: 10px; height: 26px; min-width: 26px; padding: 0 9px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 650; font-variant-numeric: tabular-nums; background: rgba(8, 9, 14, .5); border: 1px solid rgba(255, 255, 255, .18); }
+    .tile.off { opacity: .45; }
+    .tile .off-tag { left: 10px; right: auto; }
+
+    /* ═══════════════════════ CAMPS ═══════════════════════ */
+    .sides { display: grid; gap: 14px; }
+    @media (min-width: 720px) { .sides { grid-template-columns: 1fr 1fr; } }
+    .side { position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; width: 100%; min-height: 176px; padding: 22px; border-radius: 30px; overflow: hidden; isolation: isolate; text-align: left; border: 1px solid var(--line-2); background: linear-gradient(180deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .03)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 22px 50px -26px rgba(0, 0, 0, .75); transition: transform .25s var(--spring), border-color .2s; }
+    .side::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(120% 110% at 100% 0%, var(--c), transparent 62%); opacity: .5; transition: opacity .3s; }
+    @media (hover: hover) { .side:hover::before { opacity: .72; } }
+    .side:active { transform: scale(.98); }
+    .side.attack { --c: var(--amber); }
+    .side.defense { --c: var(--signal); }
+    .sico { position: absolute; top: 20px; right: 20px; width: 58px; height: 58px; border-radius: 18px; display: grid; place-items: center; color: var(--c); background: color-mix(in oklab, var(--c) 17%, transparent); border: 1px solid color-mix(in oklab, var(--c) 42%, transparent); }
+    .snm { font: 700 36px/1 var(--display); letter-spacing: -.034em; }
+    .sct { color: var(--t2); font-size: 15px; font-variant-numeric: tabular-nums; }
+    .side .kbd { position: absolute; left: 22px; top: 22px; }
+
+    /* ═══════════════════════ BP ═══════════════════════ */
+    .rows { display: grid; gap: 10px; }
+    @media (min-width: 900px) { .rows { grid-template-columns: 1fr 1fr; } }
+    .row { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 74px; padding: 12px 16px 12px 12px; border-radius: 24px; text-align: left; background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .028)); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1); transition: transform .2s var(--spring), border-color .2s; }
+    .row:active { transform: scale(.985); }
+    @media (hover: hover) { .row:hover { border-color: var(--line-2); } }
+    .fl { flex: none; width: 50px; height: 50px; border-radius: 12px; display: grid; place-items: center; font: 800 17px/1 var(--display); letter-spacing: -.03em; font-variant-numeric: tabular-nums; color: var(--accent-hi); background: color-mix(in oklab, var(--accent) 17%, transparent); border: 1px solid color-mix(in oklab, var(--accent) 40%, transparent); }
+    .fl.sm { font-size: 12.5px; letter-spacing: -.01em; }
+    .rt { flex: 1; min-width: 0; }
+    .rn { display: block; font-size: 17px; font-weight: 600; letter-spacing: -.012em; line-height: 1.25; }
+    .rs { display: block; margin-top: 3px; font-size: 14px; color: var(--t2); font-variant-numeric: tabular-nums; }
+    .chev { color: var(--t3); }
+
+    /* ═══════════════════════ STRATÉGIES ═══════════════════════ */
+    .filters { margin-bottom: 8px; }
+    .chip { flex: none; height: 40px; padding: 0 15px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 550; color: var(--t2); background: var(--fill); border: 1px solid var(--line); white-space: nowrap; transition: background .2s, color .2s, border-color .2s; }
+    .chip.has-op { padding-left: 5px; }
+    .chip .n { font-size: 13px; color: var(--t3); font-variant-numeric: tabular-nums; }
+    .chip[aria-pressed="true"], .chip[aria-checked="true"] { background: var(--frost); color: #07080c; border-color: transparent; }
+    .chip[aria-pressed="true"] .n { color: rgba(7, 8, 12, .55); }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 40px; margin: 8px 0 12px; }
+    .count { font-size: 15px; color: var(--t2); font-variant-numeric: tabular-nums; }
+    .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    @media (max-width: 359px) { .cards { grid-template-columns: 1fr; } }
+    @media (min-width: 720px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; } }
+    @media (min-width: 1060px) { .cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+    .card { content-visibility: auto; contain-intrinsic-size: auto 250px; position: relative; padding: 6px; border-radius: 24px; background: linear-gradient(180deg, rgba(255, 255, 255, .085), rgba(255, 255, 255, .028)); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1); cursor: pointer; transition: transform .22s var(--spring), border-color .2s; }
+    .card:active { transform: scale(.975); }
+    .thw { position: relative; }
+    .th { position: relative; aspect-ratio: 16 / 10; border-radius: 18px; overflow: hidden; background: #0d0f15; }
+    .th > img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+    @media (hover: hover) { .card:hover { border-color: var(--line-2); } .card:hover .th > img { transform: scale(1.04); } }
+    .sbg { position: absolute; inset: -14px; background-size: cover; background-position: center; filter: blur(14px) saturate(1.3); opacity: .65; }
+    .sfg { position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); aspect-ratio: 9 / 16; background-size: auto 100%; background-position: center; box-shadow: 0 0 26px rgba(0, 0, 0, .55); }
+    .fart { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(255, 255, 255, .72); background: radial-gradient(100% 90% at 20% 10%, hsl(var(--h) 60% 45% / .55), transparent 65%), linear-gradient(160deg, #191c27, #0c0d13); }
+    .play { position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: rgba(8, 9, 14, .55); border: 1px solid rgba(255, 255, 255, .32); box-shadow: 0 6px 18px rgba(0, 0, 0, .35); transition: transform .25s var(--spring), opacity .2s; }
+    @media (hover: hover) { .card .play { opacity: 0; transform: scale(.85); } .card:hover .play, .card:focus-visible .play { opacity: 1; transform: none; } }
+    .tags { position: absolute; top: 8px; right: 8px; display: flex; gap: 5px; }
+    .tag { height: 22px; padding: 0 8px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 650; color: #fff; background: rgba(8, 9, 14, .68); font-variant-numeric: tabular-nums; }
+    .th .kbd { position: absolute; top: 8px; left: 8px; color: #fff; background: rgba(0, 0, 0, .5); border-color: rgba(255, 255, 255, .25); }
+    .opx { position: absolute; left: 8px; bottom: -20px; z-index: 2; }
+    .cbody { padding: 27px 6px 6px; }
+    .ctitle { font-size: 15px; font-weight: 600; line-height: 1.3; letter-spacing: -.006em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+    .cmeta { margin-top: 7px; display: flex; align-items: center; gap: 7px; min-width: 0; font-size: 13px; color: var(--t2); }
+    .cmeta .opn { min-width: 0; font-weight: 600; color: var(--frost); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cat { flex: none; height: 21px; padding: 0 7px; border-radius: 7px; display: inline-flex; align-items: center; font-size: 11.5px; font-weight: 650; color: var(--accent-hi); background: color-mix(in oklab, var(--accent) 16%, transparent); }
+    .card.admin .cmeta { padding-right: 34px; }
+    .more { position: absolute; right: 6px; bottom: 6px; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: var(--t2); transition: background .2s, color .2s; }
+    .more:hover { background: var(--fill-2); color: var(--frost); }
+
+    /* agents */
+    .op { --s: 44px; width: var(--s); height: var(--s); flex: none; border-radius: 50%; display: inline-grid; place-items: center; position: relative; overflow: hidden; background: radial-gradient(100% 100% at 30% 20%, #2b2e3a, #11131a); border: 2px solid var(--oc, #8e8e93); box-shadow: 0 0 0 3px rgba(6, 7, 11, .85), 0 8px 22px -8px var(--oc, transparent); }
+    .op[data-side="attack"] { --oc: var(--amber); }
+    .op[data-side="defense"] { --oc: var(--signal); }
+    .op img { width: 82%; height: 82%; object-fit: contain; }
+    .op .ini { font: 800 calc(var(--s) * .34)/1 var(--display); letter-spacing: -.02em; color: var(--frost); }
+    .op[data-side="none"] .ini { color: var(--t2); font-weight: 600; }
+    .chip .op { border-width: 1.5px; box-shadow: none; }
+
+    /* vides & squelettes */
+    .empty { margin-top: 8px; padding: 34px 22px; border-radius: 28px; text-align: center; display: grid; justify-items: center; gap: 10px; background: linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02)); border: 1px dashed var(--line-2); }
+    .empty .ico { color: var(--accent-hi); }
+    .empty h2 { margin: 2px 0 0; font: 700 21px/1.2 var(--display); letter-spacing: -.015em; }
+    .empty p { margin: 0 0 6px; color: var(--t2); max-width: 36ch; line-height: 1.45; }
+    .sk { border-radius: 26px; aspect-ratio: 4 / 3; background: linear-gradient(100deg, rgba(255, 255, 255, .035) 30%, rgba(255, 255, 255, .085) 50%, rgba(255, 255, 255, .035) 70%) 0 0 / 220% 100%; animation: sk 1.3s linear infinite; }
+    .sk-t { height: 46px; width: 48%; border-radius: 14px; margin: 6px 0 24px; }
+    @keyframes sk { to { background-position: -220% 0; } }
+
+    /* configuration */
+    .setup { min-height: calc(100dvh - 160px); display: grid; place-items: center; }
+    .panel { width: min(100%, 460px); padding: 28px 22px 22px; border-radius: 32px; background: rgba(20, 22, 30, .55); -webkit-backdrop-filter: blur(30px) saturate(170%); backdrop-filter: blur(30px) saturate(170%); border: 1px solid var(--line-2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), 0 30px 80px -30px rgba(0, 0, 0, .8); }
+    .panel h1 { margin: 16px 0 8px; font: 700 30px/1.1 var(--display); letter-spacing: -.026em; }
+    .panel > p { margin: 0 0 20px; color: var(--t2); line-height: 1.45; }
+    .panel .hint { margin: 16px 0 0; }
+    .mark { width: 60px; height: 60px; border-radius: 18px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, var(--amber), var(--signal)); box-shadow: 0 14px 34px -12px rgba(46, 139, 255, .55); }
+
+    /* ═══════════════════════ FORMULAIRES ═══════════════════════ */
+    .fld { display: grid; gap: 7px; margin: 0 0 16px; min-width: 0; }
+    .lbl { font-size: 14px; font-weight: 600; color: var(--t2); }
+    .lbl .hint { font-weight: 500; }
+    .hint { font-size: 13.5px; line-height: 1.45; color: var(--t3); margin: 6px 0 12px; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .form-err { margin: 0 0 12px; padding: 10px 12px; border-radius: 12px; font-size: 14px; line-height: 1.4; color: #ffb4ad; background: color-mix(in oklab, var(--alert) 15%, transparent); }
+    .form-actions { position: sticky; bottom: -1px; display: flex; gap: 10px; margin: 8px -20px 0; padding: 14px 20px 6px; background: linear-gradient(180deg, rgba(24, 25, 32, 0), rgba(24, 25, 32, .96) 34%); }
+    .form-actions .btn-primary { flex: 1; }
+    .segc { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; padding: 4px; border-radius: 14px; background: rgba(255, 255, 255, .06); border: 1px solid var(--line); }
+    .segc button { min-height: 40px; padding: 0 8px; border-radius: 10px; font-size: 15px; font-weight: 600; color: var(--t2); text-align: center; transition: background .2s, color .2s; }
+    .segc button[aria-checked="true"], .segc button[aria-pressed="true"] { background: var(--frost); color: #07080c; }
+    .segc button[data-side="attack"][aria-checked="true"], .segc button[data-side="attack"][aria-pressed="true"] { background: var(--amber); }
+    .segc button[data-side="defense"][aria-checked="true"], .segc button[data-side="defense"][aria-pressed="true"] { background: var(--signal); }
+    .segc.mini button { min-height: 32px; font-size: 13px; }
+    .wrapc { display: flex; flex-wrap: wrap; gap: 8px; }
+    .wrapc .chip { height: 38px; }
+    .picker { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 4px; max-height: 286px; overflow-y: auto; overscroll-behavior: contain; padding: 4px; border-radius: 16px; background: rgba(0, 0, 0, .18); border: 1px solid var(--line); }
+    .pk { display: grid; justify-items: center; gap: 6px; padding: 9px 2px 7px; border-radius: 13px; font-size: 12px; font-weight: 550; color: var(--t2); border: 1px solid transparent; text-align: center; }
+    .pk .nm { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pk[aria-checked="true"] { color: var(--frost); background: color-mix(in oklab, var(--accent) 17%, transparent); border-color: color-mix(in oklab, var(--accent) 60%, transparent); }
+    .preview { display: flex; align-items: center; gap: 12px; margin: -6px 0 16px; padding: 8px; border-radius: 16px; background: rgba(255, 255, 255, .05); border: 1px solid var(--line); font-size: 14px; line-height: 1.4; }
+    .preview.bad { color: #ffb4ad; padding: 10px 12px; }
+    .pth { flex: none; position: relative; width: 112px; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #000 center / cover no-repeat; display: grid; place-items: center; color: var(--t2); }
+    .pth.short { width: 50px; aspect-ratio: 9 / 16; background-size: auto 100%; }
+    .pinfo { flex: 1; min-width: 0; display: grid; gap: 8px; }
+    .ptag { font-weight: 600; color: var(--frost); }
+    .switch-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 52px; margin: 0 0 6px; font-size: 16px; }
+    .switch { -webkit-appearance: none; appearance: none; flex: none; position: relative; width: 51px; height: 31px; margin: 0; border-radius: 999px; background: rgba(120, 120, 128, .34); cursor: pointer; transition: background .25s; }
+    .switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 50%; background: #fff; box-shadow: 0 3px 8px rgba(0, 0, 0, .28); transition: transform .3s var(--spring); }
+    .switch:checked { background: var(--ok); }
+    .switch:checked::after { transform: translateX(20px); }
+
+    /* ═══════════════════════ FEUILLES ═══════════════════════ */
+    .layer { position: fixed; inset: 0; z-index: 80; display: flex; align-items: flex-end; justify-content: center; }
+    .scrim { position: absolute; inset: 0; background: rgba(0, 0, 0, .5); opacity: 0; transition: opacity .3s var(--ease); touch-action: none; }
+    .layer.open .scrim { opacity: 1; }
+    .sheet { position: relative; width: 100%; max-width: 620px; max-height: calc(100dvh - var(--st) - 58px); display: flex; flex-direction: column; border-radius: 30px 30px 0 0; background: rgba(24, 25, 32, .84); -webkit-backdrop-filter: blur(40px) saturate(180%); backdrop-filter: blur(40px) saturate(180%); border: 1px solid var(--line-2); border-bottom: 0; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 -24px 70px rgba(0, 0, 0, .55); transform: translateY(104%); transition: transform .46s var(--spring); }
+    .layer.open .sheet { transform: none; }
+    .layer.closing .sheet { transition: transform .26s var(--ease); }
+    .sheet-top { flex: none; touch-action: none; }
+    .grab { width: 36px; height: 5px; border-radius: 3px; background: rgba(255, 255, 255, .3); margin: 8px auto 0; }
+    .sheet-h { display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 20px; }
+    .sheet-h h2 { flex: 1; min-width: 0; margin: 0; font: 700 21px/1.2 var(--display); letter-spacing: -.016em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sheet-x { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; color: var(--t2); background: var(--fill-2); }
+    .sheet-b { overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 8px 20px calc(var(--sb) + 20px); }
+    .sheet-lede { margin: 0 0 18px; color: var(--t2); line-height: 1.45; }
+    @media (min-width: 720px) {
+      .layer { align-items: center; padding: 24px; }
+      .sheet { border-radius: 30px; border-bottom: 1px solid var(--line-2); max-height: min(88vh, 880px); opacity: 0; transform: translateY(18px) scale(.97); transition: transform .36s var(--spring), opacity .22s var(--ease); }
+      .layer.open .sheet { opacity: 1; transform: none; }
+      .grab { display: none; }
+      .sheet-h { padding-top: 14px; }
+      .sheet-b { padding-bottom: 22px; }
+    }
+    .menu { display: grid; gap: 2px; margin: 0 -8px; }
+    .mi { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 54px; padding: 0 12px; border-radius: 15px; font-size: 17px; text-align: left; transition: background .2s; }
+    .mi svg { color: var(--t2); }
+    @media (hover: hover) { .mi:hover { background: var(--fill); } }
+    .mi.danger { color: #ff8f86; }
+    .mi.danger svg { color: inherit; }
+    .mi.armed { background: var(--alert); color: #fff; }
+    .acct { display: flex; align-items: center; gap: 14px; margin: 0 0 10px; padding: 2px 0 16px; border-bottom: 1px solid var(--line); }
+    .acct .av { flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font: 800 19px/1 var(--display); color: #fff; background: linear-gradient(135deg, var(--amber), var(--signal)); }
+    .acct b { display: block; font-size: 16px; overflow-wrap: anywhere; }
+    .acct small { font-size: 14px; color: var(--t2); }
+    .mlist { display: grid; gap: 8px; }
+    .mrow { display: flex; align-items: center; gap: 8px; padding: 6px; border-radius: 18px; background: rgba(255, 255, 255, .04); border: 1px solid var(--line); }
+    .mrow .input, .mrow .select { min-height: 42px; padding-top: 8px; padding-bottom: 8px; border-radius: 12px; min-width: 0; }
+    .fl-sel { width: 94px !important; flex: none; }
+    .thumb-btn, .op-up { position: relative; flex: none; overflow: hidden; cursor: pointer; }
+    .thumb-btn { width: 58px; height: 42px; border-radius: 12px; background: #111; }
+    .thumb-btn img, .thumb-btn .art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .thumb-btn .art { background: radial-gradient(120% 100% at 0% 0%, hsl(var(--h) 62% 50% / .6), transparent 65%), #161924; }
+    .tb-ico { position: absolute; right: 3px; bottom: 3px; width: 20px; height: 20px; border-radius: 6px; display: grid; place-items: center; background: rgba(0, 0, 0, .55); }
+    .op-up { border-radius: 50%; padding: 3px; }
+    .thumb-btn input, .op-up input, .file-btn input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 0; }
+    .file-btn { position: relative; overflow: hidden; }
+    .icon-btn { flex: none; width: 42px; height: 42px; border-radius: 12px; display: inline-grid; place-items: center; color: var(--t2); transition: background .2s, color .2s; }
+    @media (hover: hover) { .icon-btn:hover { background: var(--fill-2); color: var(--frost); } }
+    .icon-btn.armed { width: auto; padding: 0 12px; display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: #fff; background: var(--alert); }
+    .inline-add { display: flex; gap: 8px; margin: 0 0 14px; }
+    .inline-add .input { flex: 1; min-width: 0; }
+    .tools { display: flex; flex-wrap: wrap; gap: 8px; }
+    .top-gap { margin-top: 14px; }
+    .pv { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 16px; }
+
+    /* ═══════════════════════ LECTEUR ═══════════════════════ */
+    .player { position: fixed; inset: 0; z-index: 60; opacity: 0; pointer-events: none; transition: opacity .28s var(--ease); }
+    .player.open { opacity: 1; pointer-events: auto; }
+    .player[data-side="attack"] { --accent: var(--amber); --accent-hi: var(--amber-hi); }
+    .player[data-side="defense"] { --accent: var(--signal); --accent-hi: var(--signal-hi); }
+    .pl-bg { position: absolute; inset: 0; background: rgba(5, 6, 10, .8); -webkit-backdrop-filter: blur(28px) saturate(150%); backdrop-filter: blur(28px) saturate(150%); touch-action: none; }
+    .pl-amb { position: absolute; left: -15%; top: -15%; width: 130%; height: 130%; max-width: none; object-fit: cover; filter: blur(70px) saturate(1.7); opacity: 0; transition: opacity .7s var(--ease); pointer-events: none; }
+    .player.open .pl-amb.on { opacity: .4; }
+    .pl-shell { outline: none; position: relative; height: 100%; max-width: 1220px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; padding: calc(var(--st) + 8px) var(--gxr) calc(var(--sb) + 12px) var(--gx); transform: translateY(26px) scale(.985); transition: transform .46s var(--spring); }
+    .player.open .pl-shell { transform: none; }
+    .pl-head { flex: none; display: flex; align-items: center; gap: 12px; min-height: 52px; touch-action: none; }
+    .pl-id { flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; }
+    .pl-txt { min-width: 0; }
+    .pl-t { font-size: 17px; font-weight: 650; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pl-m { margin-top: 4px; display: flex; align-items: center; gap: 7px; min-width: 0; font-size: 13px; color: var(--t2); }
+    .pl-m .ell { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sidepill { flex: none; height: 20px; padding: 0 8px; border-radius: 999px; display: inline-flex; align-items: center; font-size: 12px; font-weight: 700; color: #07080c; }
+    .sidepill.attack { background: var(--amber); }
+    .sidepill.defense { background: var(--signal); }
+    .pl-acts { flex: none; display: flex; gap: 8px; }
+    .pl-wrap { flex: 1; min-height: 0; display: grid; place-items: center; }
+    .stage { position: relative; width: 320px; height: 180px; border-radius: 22px; overflow: hidden; background: #000; box-shadow: 0 0 0 1px rgba(255, 255, 255, .1), 0 40px 90px -30px rgba(0, 0, 0, .9); }
+    .yt-host, .yt-host > *, .yt-host iframe { position: absolute !important; inset: 0; width: 100% !important; height: 100% !important; border: 0; }
+    .pl-video { position: absolute; inset: 0; width: 100%; height: 100%; background: #000; display: none; }
+    .stage.file .pl-video { display: block; }
+    .stage.file .yt-host { visibility: hidden; }
+    .pl-poster { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: opacity .35s var(--ease); }
+    .stage.playing .pl-poster { opacity: 0; }
+    .pl-spin { position: absolute; left: 50%; top: 50%; z-index: 3; width: 38px; height: 38px; margin: -19px 0 0 -19px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, .25); border-top-color: #fff; animation: spin .8s linear infinite; pointer-events: none; }
+    .stage.playing .pl-spin, .stage.err .pl-spin { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .pl-err { position: absolute; inset: 0; z-index: 4; display: grid; place-content: center; justify-items: center; gap: 12px; padding: 20px; text-align: center; font-size: 15px; line-height: 1.4; background: rgba(0, 0, 0, .74); }
+    .pl-err p { margin: 0; max-width: 32ch; }
+    .pl-err svg { color: #ff8a80; }
+    .pl-unmute { position: absolute; z-index: 5; left: 50%; bottom: 16px; transform: translateX(-50%); height: 40px; padding: 0 16px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: #07080c; background: rgba(255, 255, 255, .92); box-shadow: 0 10px 30px rgba(0, 0, 0, .4); }
+    .pl-ctrl { flex: none; align-self: center; display: flex; align-items: center; gap: 4px; padding: 5px; border-radius: 999px; background: rgba(30, 32, 40, .62); -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%); border: 1px solid var(--line-2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 16px 40px -16px rgba(0, 0, 0, .7); touch-action: none; }
+    .cb { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--frost); transition: background .2s, color .2s; }
+    @media (hover: hover) { .cb:hover { background: var(--fill-2); } }
+    .cb[aria-pressed="true"] { color: var(--accent-hi); background: color-mix(in oklab, var(--accent) 22%, transparent); }
+    .rates { display: flex; gap: 2px; margin: 0 4px; padding: 3px; border-radius: 999px; background: rgba(255, 255, 255, .07); }
+    .rates button { height: 38px; min-width: 46px; padding: 0 8px; border-radius: 999px; font-size: 15px; font-weight: 650; color: var(--t2); text-align: center; font-variant-numeric: tabular-nums; transition: background .2s, color .2s; }
+    .rates button[aria-pressed="true"] { background: var(--frost); color: #07080c; }
+    .pl-notes { flex: none; align-self: center; width: min(100%, 720px); max-height: 20vh; overflow-y: auto; overscroll-behavior: contain; padding: 12px 16px; border-radius: 18px; font-size: 15px; line-height: 1.5; color: var(--t2); background: rgba(255, 255, 255, .05); border: 1px solid var(--line); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .pl-notes:empty { display: none; }
+    @media (max-width: 370px) { .cb.nav { display: none; } }
+
+    /* ═══════════════════════ TOASTS ═══════════════════════ */
+    .toasts { position: fixed; z-index: 100; top: calc(var(--st) + 10px); left: 50%; transform: translateX(-50%); width: max-content; max-width: calc(100vw - 32px); display: grid; justify-items: center; gap: 8px; pointer-events: none; }
+    .toast { display: flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 999px; font-size: 15px; font-weight: 550; line-height: 1.3; background: rgba(36, 38, 46, .84); -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%); border: 1px solid var(--line-2); box-shadow: 0 16px 40px -12px rgba(0, 0, 0, .6); animation: tIn .5s var(--spring) both; }
+    .toast svg { color: var(--ok); }
+    .toast.err svg { color: var(--alert); }
+    .toast.info svg { color: var(--accent-hi); }
+    .toast.out { animation: tOut .28s var(--ease) forwards; }
+    @keyframes tIn { from { opacity: 0; transform: translateY(-14px) scale(.92); } }
+    @keyframes tOut { to { opacity: 0; transform: translateY(-10px) scale(.96); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="field" aria-hidden="true"><i class="f1"></i><i class="f2"></i><i class="f3"></i><b class="shade"></b><b class="flash"></b><b class="grain"></b></div>
+
+  <header class="bar" id="bar">
+    <div class="bar-in">
+      <button class="circle glass-btn off" id="bar-back" data-act="back" aria-label="Retour" tabindex="-1"></button>
+      <div class="bar-title" id="bar-title" aria-hidden="true"></div>
+      <button class="circle glass-btn" id="bar-account" data-act="account" aria-label="Compte et gestion"></button>
+    </div>
+  </header>
+
+  <main class="app" id="app"></main>
+
+  <div id="player" class="player" role="dialog" aria-modal="true" aria-label="Lecteur vidéo" aria-hidden="true" inert>
+    <div class="pl-bg" data-act="pl-close"></div>
+    <img id="pl-amb" class="pl-amb" alt="" aria-hidden="true">
+    <div id="pl-shell" class="pl-shell" tabindex="-1">
+      <div id="pl-head" class="pl-head">
+        <button id="pl-close" class="circle glass-btn" data-act="pl-close" aria-label="Fermer la vidéo"></button>
+        <div class="pl-id"><span id="pl-op"></span><div class="pl-txt"><div id="pl-t" class="pl-t"></div><div id="pl-m" class="pl-m"></div></div></div>
+        <div id="pl-acts" class="pl-acts"></div>
+      </div>
+      <div class="pl-wrap" id="pl-wrap">
+        <div id="pl-stage" class="stage">
+          <div id="yt-host" class="yt-host"></div>
+          <video id="pl-video" class="pl-video" playsinline controls preload="metadata"></video>
+          <img id="pl-poster" class="pl-poster" alt="">
+          <div class="pl-spin" aria-hidden="true"></div>
+          <div id="pl-err" class="pl-err" hidden></div>
+          <button id="pl-unmute" class="pl-unmute" data-act="pl-unmute" hidden></button>
+        </div>
+      </div>
+      <div id="pl-ctrl" class="pl-ctrl">
+        <button class="cb nav" data-act="pl-prev" data-icon="prev" aria-label="Vidéo précédente"></button>
+        <div id="pl-rates" class="rates" role="group" aria-label="Vitesse de lecture">
+          <button data-act="pl-rate" data-rate="0.25" aria-label="Vitesse 0,25">¼×</button>
+          <button data-act="pl-rate" data-rate="0.5" aria-label="Vitesse 0,5">½×</button>
+          <button data-act="pl-rate" data-rate="1" aria-label="Vitesse normale">1×</button>
+        </div>
+        <button id="pl-loop" class="cb" data-act="pl-loop" data-icon="loop" aria-label="Lecture en boucle"></button>
+        <button id="pl-sound" class="cb" data-act="pl-sound" aria-label="Son"></button>
+        <button class="cb nav" data-act="pl-next" data-icon="next" aria-label="Vidéo suivante"></button>
+      </div>
+      <div id="pl-notes" class="pl-notes"></div>
+    </div>
+  </div>
+
+  <div id="sheets"></div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <noscript><p style="padding:24px">Active JavaScript pour utiliser R6 Playbook.</p></noscript>
+
+  <script type="module">
+    // ═══════════════════════════════════════════════════════════════
+    //  R6 PLAYBOOK — app complète (fichier unique, aucune dépendance au chargement)
+    //  Lecture : API REST Supabase directe (rapide) + cache local.
+    //  Gestion : supabase-js chargé à la demande (connexion, ajout, suppression).
+    // ═══════════════════════════════════════════════════════════════
+
+    // ─────────────── 0. Configuration ───────────────
+    const LS = {
+      get(k, d = null) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+      set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* quota / navigation privée */ } },
+      del(k) { try { localStorage.removeItem(k); } catch { /* ignore */ } },
+    };
+    const KEYS = { auth: 'r6pb-auth', data: 'r6pb:data:v1', prefs: 'r6pb:prefs', recents: 'r6pb:recents', config: 'r6pb:config' };
+    const dataKey = () => `${KEYS.data}:${CFG.url}`;
+    const CFG = (() => {
+      const w = window.R6_CONFIG || {};
+      let url = String(w.SUPABASE_URL || '').trim();
+      let key = String(w.SUPABASE_KEY || '').trim();
+      let source = 'file';
+      if (!url || !key) {
+        const s = LS.get(KEYS.config);
+        if (s && s.url && s.key) { url = s.url; key = s.key; source = 'local'; }
+      }
+      return { url: url.replace(/\/+$/, ''), key, source, ok: Boolean(url && key) };
+    })();
+    const SB_MODULES = ['https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm', 'https://esm.sh/@supabase/supabase-js@2'];
+    const SIDES = { attack: { label: 'Attaque', url: 'attaque' }, defense: { label: 'Défense', url: 'defense' } };
+    const SIDE_FROM_URL = { attaque: 'attack', attack: 'attack', defense: 'defense', 'défense': 'defense' };
+    const CATS = [['trick', 'Trick'], ['placement', 'Placement'], ['ligne', 'Ligne de tir'], ['setup', 'Setup'], ['utilitaire', 'Utilitaire'], ['autre', 'Autre']];
+    const CAT = Object.fromEntries(CATS);
+    const FLOORS = ['B', '1F', '2F', '3F', '4F', 'B/1F', '1F/2F', 'Toit'];
+    const COLS = {
+      maps: 'id,slug,name,image_url,is_active,sort_order',
+      sites: 'id,map_id,name,floor,sort_order',
+      operators: 'id,slug,name,side,icon_url',
+      strategies: 'id,site_id,side,operator_id,title,category,notes,video_url,provider,video_id,kind,start_seconds,end_seconds,pinned,created_at',
+    };
+
+    // ─────────────── 1. Utilitaires ───────────────
+    const $ = (s, r = document) => r.querySelector(s);
+    const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+    const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+    const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ESC[c]);
+    const norm = (s) => String(s ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[øØ]/g, 'o').replace(/[æÆ]/g, 'ae').toLowerCase();
+    const compact = (s) => norm(s).replace(/[^a-z0-9]/g, '');
+    const slugify = (s) => norm(s).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'element';
+    const hueOf = (s) => { let h = 7; for (const ch of String(s)) h = (h * 31 + ch.codePointAt(0)) % 3600; return h % 360; };
+    const nfmt = (n, one, many) => `${n} ${n > 1 ? many : one}`;
+    const initials = (name) => { const w = String(name || '?').trim().split(/\s+/).filter(Boolean); return (w.length > 1 ? w[0][0] + w[1][0] : (w[0] || '?').slice(0, 2)).toUpperCase(); };
+    const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
+    const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+    const byOrder = (a, b) => (a.sort_order - b.sort_order) || a.name.localeCompare(b.name, 'fr');
+    const byName = (a, b) => a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' });
+    const byStrat = (a, b) => (Number(b.pinned) - Number(a.pinned)) || String(b.created_at).localeCompare(String(a.created_at));
+
+    // ─────────────── 2. Icônes (dessinées pour l'app) ───────────────
+    const ICONS = {
+      'chevron-left': '<path d="M15 5l-7 7 7 7"/>',
+      'chevron-right': '<path d="M9 5l7 7-7 7"/>',
+      'chevron-down': '<path d="M5 9l7 7 7-7"/>',
+      search: '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/>',
+      play: '<path d="M8 5.6v12.8a1 1 0 0 0 1.53.85l10.2-6.4a1 1 0 0 0 0-1.7L9.53 4.75A1 1 0 0 0 8 5.6z" fill="currentColor" stroke="none"/>',
+      plus: '<path d="M12 5v14M5 12h14"/>',
+      person: '<circle cx="12" cy="8.5" r="3.8"/><path d="M4.8 20a7.4 7.4 0 0 1 14.4 0"/>',
+      xmark: '<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>',
+      trash: '<path d="M4 7h16M9.5 7V4.8h5V7M6.5 7l.9 12.2a1.6 1.6 0 0 0 1.6 1.5h6a1.6 1.6 0 0 0 1.6-1.5L17.5 7"/><path d="M10 11v6M14 11v6"/>',
+      pencil: '<path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="M14.5 7.5l3 3"/>',
+      pin: '<path d="M9 4h6l-1 5 3 3v2H7v-2l3-3-1-5z"/><path d="M12 14v6"/>',
+      ellipsis: '<circle cx="6" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
+      crosshair: '<circle cx="12" cy="12" r="7.5"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M12 1.8v4.4M12 17.8v4.4M1.8 12h4.4M17.8 12h4.4"/>',
+      shield: '<path d="M12 3l7.5 3v5.6c0 4.6-3.1 8.2-7.5 9.4-4.4-1.2-7.5-4.8-7.5-9.4V6L12 3z"/><path d="M12 7.5v9"/>',
+      film: '<rect x="3.5" y="5" width="17" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/>',
+      photo: '<rect x="3.5" y="5" width="17" height="14" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="M20.5 16l-5-5-8.5 8"/>',
+      link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+      check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+      warning: '<path d="M12 4l9 16H3L12 4z"/><path d="M12 10v4.5"/><circle cx="12" cy="17.3" r=".9" fill="currentColor" stroke="none"/>',
+      loop: '<path d="M17 3l3 3-3 3"/><path d="M4 11V9.5A3.5 3.5 0 0 1 7.5 6H20"/><path d="M7 21l-3-3 3-3"/><path d="M20 13v1.5a3.5 3.5 0 0 1-3.5 3.5H4"/>',
+      speaker: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>',
+      'speaker-off': '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/>',
+      prev: '<path d="M17.5 6.2L9.7 11.2a1 1 0 0 0 0 1.6l7.8 5V6.2z" fill="currentColor"/><path d="M6.5 6v12"/>',
+      next: '<path d="M6.5 6.2l7.8 5a1 1 0 0 1 0 1.6l-7.8 5V6.2z" fill="currentColor"/><path d="M17.5 6v12"/>',
+      grid: '<rect x="4" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.8"/>',
+      map: '<path d="M9 4.5l-5 2v13l5-2 6 2 5-2v-13l-5 2-6-2z"/><path d="M9 4.5v13M15 6.5v13"/>',
+      'cloud-off': '<path d="M7.5 18.5h9a4 4 0 0 0 .7-7.94A5.5 5.5 0 0 0 7 9.5a4.5 4.5 0 0 0 .5 9z"/><path d="M4 4l16 16"/>',
+      refresh: '<path d="M19.5 10A8 8 0 0 0 5.6 7.2L4 9"/><path d="M4 4.5V9h4.5"/><path d="M4.5 14a8 8 0 0 0 13.9 2.8L20 15"/><path d="M20 19.5V15h-4.5"/>',
+      logout: '<path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><path d="M10 16l-4-4 4-4M6 12h10"/>',
+      upload: '<path d="M12 15.5V4M7.5 8.5L12 4l4.5 4.5"/><path d="M4.5 15v3a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-3"/>',
+      logo: '<path d="M12 2.8l7.8 4.5v9.4L12 21.2l-7.8-4.5V7.3z"/><circle cx="12" cy="12" r="3.2"/><path d="M12 6.6v2.2M12 15.2v2.2M6.6 12h2.2M15.2 12h2.2"/>',
+    };
+    const icon = (n, s = 20, cls = '') => `<svg class="i ${cls}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n] || ''}</svg>`;
+
+    // ─────────────── 3. Liens vidéo ───────────────
+    const YT_ID = /^[A-Za-z0-9_-]{11}$/;
+    function parseTime(v) {
+      if (v == null) return null;
+      v = String(v).trim().toLowerCase();
+      if (!v) return null;
+      if (/^\d+(\.\d+)?s?$/.test(v)) return Math.floor(parseFloat(v));
+      if (/^\d{1,3}(:\d{1,2}){1,2}$/.test(v)) return v.split(':').reduce((a, n) => a * 60 + parseInt(n, 10), 0);
+      const m = v.match(/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s?)?$/);
+      if (m && (m[1] || m[2] || m[3])) return (+(m[1] || 0)) * 3600 + (+(m[2] || 0)) * 60 + (+(m[3] || 0));
+      return null;
+    }
+    function parseTimeInput(v) {
+      v = String(v ?? '').trim().replace(/\s+/g, '');
+      if (!v) return null;
+      if (/^\d{1,3}[.,]\d{1,2}$/.test(v)) v = v.replace(/[.,]/, ':');
+      return parseTime(v);
+    }
+    function fmtTime(s) {
+      if (s == null) return '';
+      s = Math.max(0, Math.floor(s));
+      const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60;
+      return h ? `${h}:${String(m).padStart(2, '0')}:${String(x).padStart(2, '0')}` : `${m}:${String(x).padStart(2, '0')}`;
+    }
+    function parseVideoUrl(input) {
+      const raw = String(input || '').trim();
+      if (!raw) return null;
+      if (YT_ID.test(raw)) return { provider: 'youtube', videoId: raw, kind: 'video', url: `https://www.youtube.com/watch?v=${raw}`, start: null, end: null };
+      let u;
+      try { u = new URL(/^[a-z][a-z0-9+.-]*:\/\//i.test(raw) ? raw : `https://${raw}`); } catch { return null; }
+      if (!/^https?:$/.test(u.protocol)) return null;
+      const host = u.hostname.toLowerCase().replace(/^(www|m|music)\./, '');
+      let id = null, kind = 'video';
+      if (host === 'youtu.be') id = u.pathname.split('/')[1] || null;
+      else if (host === 'youtube.com' || host === 'youtube-nocookie.com') {
+        const parts = u.pathname.split('/').filter(Boolean);
+        if (parts[0] === 'watch') id = u.searchParams.get('v');
+        else if (['shorts', 'embed', 'live', 'v', 'e'].includes(parts[0])) { id = parts[1] || null; if (parts[0] === 'shorts') kind = 'short'; }
+      }
+      if (id && YT_ID.test(id)) {
+        const hashT = (u.hash.match(/t=([^&]+)/) || [])[1];
+        const start = parseTime(u.searchParams.get('t') ?? u.searchParams.get('start') ?? hashT ?? null);
+        const end = parseTime(u.searchParams.get('end'));
+        return { provider: 'youtube', videoId: id, kind, url: u.href, start, end: end && (!start || end > start) ? end : null };
+      }
+      if (/\.(mp4|webm|mov|m4v)$/i.test(u.pathname)) {
+        return { provider: 'file', videoId: null, kind: 'video', url: u.href, start: parseTime((u.hash.match(/t=([\d.]+)/) || [])[1]), end: null };
+      }
+      return null;
+    }
+    const ytThumb = (id, q = 'mqdefault') => `https://i.ytimg.com/vi/${id}/${q}.jpg`;
+
+    // ─────────────── 4. Données ───────────────
+    // mêmes en-têtes que le client officiel supabase-js (clé publishable ou ancienne clé anon)
+    const restHeaders = (key = CFG.key) => ({ apikey: key, Authorization: `Bearer ${key}`, Accept: 'application/json' });
+    async function getJSON(path, timeout = 12000) {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), timeout);
+      try {
+        const res = await fetch(`${CFG.url}/rest/v1/${path}`, { headers: restHeaders(), cache: 'no-store', signal: ctrl.signal });
+        if (!res.ok) {
+          let body = null;
+          try { body = await res.json(); } catch { /* corps non JSON */ }
+          const err = new Error(body?.message || body?.msg || body?.error || `HTTP ${res.status}`);
+          err.status = res.status; err.code = body?.code;
+          throw err;
+        }
+        return await res.json();
+      } finally { clearTimeout(t); }
+    }
+    async function loadTable(table, order) {
+      const out = [];
+      const size = 1000;
+      for (let off = 0; off < 200000; off += size) {
+        const rows = await getJSON(`${table}?select=${COLS[table]}&order=${order}&limit=${size}&offset=${off}`);
+        out.push(...rows);
+        if (rows.length < size) break;
+      }
+      return out;
+    }
+    async function fetchData() {
+      const [maps, sites, operators, strategies] = await Promise.all([
+        loadTable('maps', 'sort_order.asc,name.asc'),
+        loadTable('sites', 'sort_order.asc,name.asc'),
+        loadTable('operators', 'name.asc'),
+        loadTable('strategies', 'pinned.desc,created_at.desc,id.asc'),
+      ]);
+      return { maps, sites, operators, strategies };
+    }
+    const inc = (m, k) => m.set(k, (m.get(k) || 0) + 1);
+    function buildIndex(d) {
+      const I = { mapBySlug: new Map(), mapById: new Map(), sitesByMap: new Map(), siteById: new Map(), opById: new Map(), stratById: new Map(), strats: new Map(), nMap: new Map(), nMapSide: new Map(), nSiteSide: new Map() };
+      for (const m of d.maps) { I.mapBySlug.set(m.slug, m); I.mapById.set(m.id, m); I.sitesByMap.set(m.id, []); }
+      for (const s of d.sites) { I.siteById.set(s.id, s); if (I.sitesByMap.has(s.map_id)) I.sitesByMap.get(s.map_id).push(s); }
+      for (const o of d.operators) I.opById.set(o.id, o);
+      for (const s of d.strategies) {
+        I.stratById.set(s.id, s);
+        const site = I.siteById.get(s.site_id);
+        if (!site) continue;
+        const k = `${s.site_id}|${s.side}`;
+        if (!I.strats.has(k)) I.strats.set(k, []);
+        I.strats.get(k).push(s);
+        inc(I.nSiteSide, k); inc(I.nMap, site.map_id); inc(I.nMapSide, `${site.map_id}|${s.side}`);
+      }
+      return I;
+    }
+    function setData(d, persist = false) {
+      d.maps.sort(byOrder); d.sites.sort(byOrder); d.operators.sort(byName); d.strategies.sort(byStrat);
+      S.data = d;
+      S.I = buildIndex(d);
+      if (persist) LS.set(dataKey(), { at: Date.now(), data: d });
+    }
+    function upsertLocal(table, row) {
+      const arr = S.data[table];
+      const i = arr.findIndex((x) => x.id === row.id);
+      if (i >= 0) arr[i] = { ...arr[i], ...row }; else arr.push(row);
+      setData(S.data, true);
+    }
+    function removeLocal(table, id) {
+      const d = S.data;
+      if (table === 'maps') {
+        const siteIds = new Set(d.sites.filter((s) => s.map_id === id).map((s) => s.id));
+        d.sites = d.sites.filter((s) => s.map_id !== id);
+        d.strategies = d.strategies.filter((s) => !siteIds.has(s.site_id));
+        d.maps = d.maps.filter((m) => m.id !== id);
+      } else if (table === 'sites') {
+        d.sites = d.sites.filter((s) => s.id !== id);
+        d.strategies = d.strategies.filter((s) => s.site_id !== id);
+      } else if (table === 'operators') {
+        d.operators = d.operators.filter((o) => o.id !== id);
+        d.strategies.forEach((s) => { if (s.operator_id === id) s.operator_id = null; });
+      } else d[table] = d[table].filter((x) => x.id !== id);
+      setData(d, true);
+    }
+
+    // ─────────────── 5. État & navigation ───────────────
+    const S = {
+      status: 'boot', data: null, I: null, rawJson: '', fetchedAt: 0, refreshing: false,
+      error: null, stale: false,
+      route: { map: null, side: null, site: null, video: null },
+      dir: '', q: '', filter: { op: null, cat: null },
+      admin: { user: null, isAdmin: false },
+      prefs: Object.assign({ rate: 1, loop: true, muted: false }, LS.get(KEYS.prefs, {})),
+    };
+    const savePrefs = () => LS.set(KEYS.prefs, S.prefs);
+    const depthOf = (r) => (r.map ? (r.side ? (r.site ? 3 : 2) : 1) : 0);
+    const curMap = () => S.I?.mapBySlug.get(S.route.map) || null;
+    const curSite = () => S.I?.siteById.get(S.route.site) || null;
+    const sitesOf = (m) => (m ? S.I.sitesByMap.get(m.id) || [] : []);
+    const stratsAt = (siteId = S.route.site, side = S.route.side) => S.I.strats.get(`${siteId}|${side}`) || [];
+    const filtered = (list) => list.filter((s) => (!S.filter.op || (S.filter.op === '_none' ? !s.operator_id : s.operator_id === S.filter.op)) && (!S.filter.cat || s.category === S.filter.cat));
+
+    function readRoute() {
+      const p = new URLSearchParams(location.search);
+      return { map: p.get('carte'), side: SIDE_FROM_URL[p.get('camp')] || null, site: p.get('bp'), video: p.get('video') };
+    }
+    function routeUrl(r) {
+      const p = new URLSearchParams();
+      if (r.map) p.set('carte', r.map);
+      if (r.map && r.side) p.set('camp', SIDES[r.side].url);
+      if (r.map && r.side && r.site) p.set('bp', r.site);
+      if (r.video) p.set('video', r.video);
+      const qs = p.toString();
+      return qs ? `?${qs}` : location.pathname;
+    }
+    function cleanRoute(r) {
+      const o = { ...r };
+      if (o.video) {
+        const s = S.I.stratById.get(o.video);
+        const site = s && S.I.siteById.get(s.site_id);
+        const m = site && S.I.mapById.get(site.map_id);
+        if (m) { o.map = m.slug; o.side = s.side; o.site = site.id; } else o.video = null;
+      }
+      const m = o.map ? S.I.mapBySlug.get(o.map) : null;
+      if (!m) { o.map = null; o.side = null; o.site = null; }
+      if (!o.side) o.site = null;
+      if (o.site) { const s = S.I.siteById.get(o.site); if (!s || s.map_id !== m.id) o.site = null; }
+      if (o.video && !o.site) o.video = null;
+      return o;
+    }
+    function applyRoute({ force = false } = {}) {
+      let r = readRoute();
+      if (S.I) {
+        const clean = cleanRoute(r);
+        if (routeUrl(clean) !== routeUrl(r)) history.replaceState(history.state, '', routeUrl(clean));
+        r = clean;
+      }
+      const prev = S.route;
+      const viewChanged = prev.map !== r.map || prev.side !== r.side || prev.site !== r.site;
+      if (viewChanged) { S.dir = depthOf(r) >= depthOf(prev) ? 'fwd' : 'back'; S.filter = { op: null, cat: null }; }
+      S.route = r;
+      if (S.status !== 'ready') { render(); return; }
+      if (viewChanged || force) render();
+      if (r.map) P.warm();
+      if (r.site && r.side) pushRecent(r);
+      syncPlayer();
+    }
+    function go(patch, { replace = false } = {}) {
+      const next = { ...S.route, ...patch };
+      if ('map' in patch && patch.map !== S.route.map) { if (!('side' in patch)) next.side = null; if (!('site' in patch)) next.site = null; }
+      if ('side' in patch && patch.side !== S.route.side && !('site' in patch)) next.site = null;
+      if (!('video' in patch)) next.video = null;
+      const url = routeUrl(next);
+      const here = routeUrl(S.route);
+      if (url === here) return;
+      // chaque entrée d'historique retient d'où elle vient : « retour » ne recule
+      // dans l'historique que si l'entrée précédente est bien l'écran parent.
+      if (replace) history.replaceState({ from: history.state?.from ?? null }, '', url);
+      else history.pushState({ from: here }, '', url);
+      applyRoute();
+    }
+    function backTo(target) {
+      if (history.state?.from === routeUrl(target)) history.back();
+      else go(target, { replace: true });
+    }
+    function goBack() {
+      if (Sheet.top) return Sheet.close();
+      if (S.route.video) return closePlayer();
+      const r = S.route, d = depthOf(r);
+      if (!d) return;
+      backTo(d === 3 ? { ...r, site: null, video: null } : d === 2 ? { ...r, side: null, site: null, video: null } : { map: null, side: null, site: null, video: null });
+    }
+    function openStrategy(id) {
+      if (S.route.video === id) return;
+      go({ video: id }, { replace: Boolean(S.route.video) });
+    }
+    function closePlayer() {
+      if (!S.route.video) { P.close(); return; }
+      backTo({ ...S.route, video: null });
+    }
+    function stepPlayer(delta) {
+      const list = filtered(stratsAt());
+      if (list.length < 2) return;
+      const i = list.findIndex((s) => s.id === S.route.video);
+      const n = list[(i + delta + list.length) % list.length];
+      go({ video: n.id }, { replace: true });
+    }
+    function syncPlayer() {
+      const id = S.route.video;
+      if (!id) { if (P.isOpen) P.close(); return; }
+      const s = S.I.stratById.get(id);
+      if (s) P.open(s);
+    }
+    function pushRecent(r) {
+      const list = LS.get(KEYS.recents, []).filter((x) => !(x.site === r.site && x.side === r.side));
+      list.unshift({ map: r.map, side: r.side, site: r.site });
+      LS.set(KEYS.recents, list.slice(0, 8));
+    }
+
+    // ─────────────── 6. Vues ───────────────
+    const scrollMemo = new Map();
+    let lastKey = '';
+    let titleObserver = null;
+
+    function render() {
+      const app = $('#app');
+      const key = `${S.status}|${S.route.map}|${S.route.side}|${S.route.site}`;
+      const changed = key !== lastKey;
+      if (changed && lastKey) scrollMemo.set(lastKey, window.scrollY);
+      const focusSearch = document.activeElement?.id === 'map-q';
+      let html;
+      if (S.status === 'setup') html = viewSetup();
+      else if (S.status === 'ready') html = viewMain();
+      else if (S.status === 'error') html = viewError();
+      else html = viewSkeleton();
+      const anim = changed && lastKey && S.status === 'ready' && S.dir ? S.dir : '';
+      app.innerHTML = `<div class="view ${anim}">${html}</div>`;
+      if (changed) window.scrollTo(0, S.dir === 'back' ? (scrollMemo.get(key) || 0) : 0);
+      lastKey = key;
+      S.dir = '';
+      paintChrome();
+      afterRender(focusSearch);
+    }
+    function viewMain() {
+      const r = S.route;
+      if (!r.map) return viewMaps();
+      if (!r.side) return viewSides();
+      if (!r.site) return viewSites();
+      return viewStrats();
+    }
+    function paintChrome() {
+      const ready = S.status === 'ready';
+      const d = ready ? depthOf(S.route) : 0;
+      const back = $('#bar-back');
+      back.classList.toggle('off', d === 0);
+      back.tabIndex = d === 0 ? -1 : 0;
+      const title = !ready ? '' : d === 0 ? 'Cartes' : d < 3 ? curMap()?.name : curSite()?.name;
+      $('#bar-title').textContent = title || '';
+      document.title = ready && d ? `${title} – R6 Playbook` : 'R6 Playbook';
+      const side = ready && S.route.side ? S.route.side : 'none';
+      const root = document.documentElement;
+      if (root.dataset.side !== side) {
+        root.dataset.side = side;
+        if (side !== 'none') { const f = $('.field'); f.classList.remove('flood'); void f.offsetWidth; f.classList.add('flood'); }
+      }
+    }
+    function afterRender(focusSearch) {
+      titleObserver?.disconnect();
+      const t = $('[data-title]');
+      const bar = $('#bar');
+      if (t) {
+        titleObserver = new IntersectionObserver(([e]) => bar.classList.toggle('solid', !e.isIntersecting), { rootMargin: `-${bar.offsetHeight}px 0px 0px 0px` });
+        titleObserver.observe(t);
+      } else bar.classList.remove('solid');
+      const q = $('#map-q');
+      if (q) {
+        q.addEventListener('input', () => { S.q = q.value; filterMaps(); });
+        filterMaps();
+        if (focusSearch) { q.focus({ preventScroll: true }); q.setSelectionRange(q.value.length, q.value.length); }
+      }
+      $('#setup-form')?.addEventListener('submit', onSetupSubmit);
+    }
+    function filterMaps() {
+      const q = compact(S.q);
+      let n = 0;
+      for (const el of $$('#maps .tile')) { const show = !q || el.dataset.k.includes(q); el.hidden = !show; if (show) n++; }
+      const none = $('#maps-none');
+      if (none) none.hidden = n > 0;
+      const rec = $('.recents');
+      if (rec) rec.hidden = Boolean(q);
+    }
+    function noticeHtml() {
+      if (!S.stale) return '';
+      return `<div class="notice" role="status">${icon('cloud-off', 18)}<span>Données en cache : ${esc(S.error || 'connexion impossible')}</span><button data-act="reload">Réessayer</button></div>`;
+    }
+    function opAvatar(op, size = 44) {
+      const side = op?.side || 'none';
+      const ini = op ? initials(op.name) : '–';
+      const inner = op?.icon_url
+        ? `<img src="${esc(op.icon_url)}" alt="" loading="lazy" decoding="async" data-fallback="${esc(ini)}">`
+        : `<span class="ini">${esc(ini)}</span>`;
+      return `<span class="op" data-side="${side}" style="--s:${size}px" title="${esc(op?.name || 'Sans agent')}">${inner}</span>`;
+    }
+    function crumbsHtml() {
+      const r = S.route, m = curMap();
+      const parts = [`<button class="crumb" data-act="crumb" data-level="0">${icon('grid', 15)}Cartes</button>`];
+      if (r.side) parts.push(`<button class="crumb" data-act="crumb" data-level="1">${esc(m.name)}</button>`);
+      if (r.site) parts.push(`<button class="crumb" data-act="crumb" data-level="2"><span class="sd ${r.side}"></span>${SIDES[r.side].label}</button>`);
+      return `<nav class="crumbs hscroll" aria-label="Navigation">${parts.join('')}</nav>`;
+    }
+
+    function viewMaps() {
+      const admin = S.admin.isAdmin;
+      const maps = S.data.maps.filter((m) => m.is_active || admin);
+      return `
+        <header class="head">
+          <h1 class="title" data-title>Cartes</h1>
+          <p class="lede">Choisis la carte de ta partie.</p>
+        </header>
+        ${noticeHtml()}
+        <label class="search">${icon('search', 18)}<input id="map-q" class="input" type="search" placeholder="Rechercher une carte" value="${esc(S.q)}" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-label="Rechercher une carte"></label>
+        ${recentsHtml()}
+        <div class="maps" id="maps">${maps.map(tileHtml).join('')}</div>
+        <p class="empty-line" id="maps-none" hidden>Aucune carte ne correspond à ta recherche.</p>
+        ${maps.length ? '' : `<div class="empty"><h2>Aucune carte</h2><p>${admin ? 'Ajoute ta première carte.' : 'La base est vide : exécute supabase-setup.sql dans Supabase.'}</p></div>`}
+        ${admin ? `<div class="admin-tools"><button class="btn btn-glass btn-sm" data-act="manage-maps">${icon('map', 18)} Gérer les cartes</button><button class="btn btn-glass btn-sm" data-act="manage-ops">${icon('person', 18)} Agents et logos</button></div>` : ''}`;
+    }
+    function tileHtml(m) {
+      const n = S.I.nMap.get(m.id) || 0;
+      return `<button class="tile${m.is_active ? '' : ' off'}" data-act="pick-map" data-slug="${esc(m.slug)}" data-k="${esc(compact(`${m.name} ${m.slug}`))}" style="--h:${hueOf(m.slug)}">
+        ${m.image_url ? `<img class="cover" src="${esc(m.image_url)}" alt="" loading="lazy" decoding="async">` : '<span class="art"></span>'}
+        ${n ? `<span class="ct" aria-label="${nfmt(n, 'stratégie', 'stratégies')}">${icon('play', 11)}${n}</span>` : ''}
+        ${m.is_active ? '' : '<span class="ct off-tag">Masquée</span>'}
+        <span class="nm">${esc(m.name)}</span>
+      </button>`;
+    }
+    function recentsHtml() {
+      const list = LS.get(KEYS.recents, []).filter((x) => S.I.mapBySlug.get(x.map) && S.I.siteById.get(x.site) && SIDES[x.side]).slice(0, 6);
+      if (!list.length) return '';
+      return `<section class="recents"><h2 class="section-label">Récents</h2><div class="hscroll">${list.map((x) => {
+        const m = S.I.mapBySlug.get(x.map), s = S.I.siteById.get(x.site);
+        return `<button class="recent" data-act="recent" data-map="${esc(x.map)}" data-side="${x.side}" data-site="${esc(x.site)}"><span class="sd ${x.side}"></span><span class="rtx"><small>${esc(m.name)}, ${SIDES[x.side].label.toLowerCase()}</small><span>${esc(s.name)}</span></span></button>`;
+      }).join('')}</div></section>`;
+    }
+    function viewSides() {
+      const m = curMap();
+      const nA = S.I.nMapSide.get(`${m.id}|attack`) || 0;
+      const nD = S.I.nMapSide.get(`${m.id}|defense`) || 0;
+      const tile = (side, n) => `<button class="side ${side}" data-act="pick-side" data-side="${side}">
+          <span class="sico">${icon(side === 'attack' ? 'crosshair' : 'shield', 30)}</span>
+          <kbd class="kbd">${side === 'attack' ? 'A' : 'D'}</kbd>
+          <span class="snm">${SIDES[side].label}</span>
+          <span class="sct">${n ? nfmt(n, 'stratégie', 'stratégies') : 'Aucune stratégie pour l’instant'}</span>
+        </button>`;
+      return `${crumbsHtml()}
+        <header class="head"><h1 class="title" data-title>${esc(m.name)}</h1><p class="lede">Tu joues de quel côté ?</p></header>
+        <div class="sides">${tile('attack', nA)}${tile('defense', nD)}</div>`;
+    }
+    function viewSites() {
+      const m = curMap(), side = S.route.side, sites = sitesOf(m);
+      const admin = S.admin.isAdmin;
+      return `${crumbsHtml()}
+        <header class="head"><h1 class="title" data-title>${esc(m.name)}</h1><p class="lede"><span class="sd ${side}"></span>${SIDES[side].label} : choisis le BP.</p></header>
+        <div class="rows">${sites.map((s, i) => {
+          const n = S.I.nSiteSide.get(`${s.id}|${side}`) || 0;
+          return `<button class="row" data-act="pick-site" data-id="${s.id}">
+            <span class="fl${s.floor.length > 2 ? ' sm' : ''}">${esc(s.floor)}</span>
+            <span class="rt"><span class="rn">${esc(s.name)}</span><span class="rs">${n ? nfmt(n, 'stratégie', 'stratégies') : 'Aucune stratégie'}</span></span>
+            ${i < 9 ? `<kbd class="kbd">${i + 1}</kbd>` : ''}${icon('chevron-right', 18, 'chev')}
+          </button>`;
+        }).join('')}</div>
+        ${sites.length ? '' : `<div class="empty"><h2>Aucun BP sur cette carte</h2><p>${admin ? 'Ajoute ses BP pour y ranger tes vidéos.' : 'Connecte-toi pour ajouter ses BP.'}</p>${admin ? `<button class="btn btn-accent" data-act="manage-sites">${icon('plus', 18)} Ajouter des BP</button>` : ''}</div>`}
+        ${admin && sites.length ? `<div class="admin-tools"><button class="btn btn-glass btn-sm" data-act="manage-sites">${icon('pencil', 18)} Gérer les BP</button></div>` : ''}`;
+    }
+    function viewStrats() {
+      const m = curMap(), site = curSite(), side = S.route.side;
+      const all = stratsAt(site.id, side);
+      const list = filtered(all);
+      const admin = S.admin.isAdmin;
+      const counts = new Map();
+      for (const s of all) inc(counts, s.operator_id || '_none');
+      const opName = (k) => (k === '_none' ? 'Sans agent' : S.I.opById.get(k)?.name || '');
+      const opKeys = [...counts.keys()].sort((a, b) => counts.get(b) - counts.get(a) || opName(a).localeCompare(opName(b), 'fr'));
+      const cats = new Set(all.map((s) => s.category));
+      const opChips = opKeys.length > 1 ? `<div class="hscroll filters" role="group" aria-label="Filtrer par agent">
+          <button class="chip" data-act="f-op" data-id="" aria-pressed="${!S.filter.op}">Tous <span class="n">${all.length}</span></button>
+          ${opKeys.map((k) => { const o = k === '_none' ? null : S.I.opById.get(k); return `<button class="chip has-op" data-act="f-op" data-id="${k}" aria-pressed="${S.filter.op === k}">${opAvatar(o, 30)}${esc(opName(k))} <span class="n">${counts.get(k)}</span></button>`; }).join('')}
+        </div>` : '';
+      const catChips = cats.size > 1 ? `<div class="hscroll filters" role="group" aria-label="Filtrer par type">
+          <button class="chip" data-act="f-cat" data-cat="" aria-pressed="${!S.filter.cat}">Tous les types</button>
+          ${CATS.filter(([k]) => cats.has(k)).map(([k, l]) => `<button class="chip" data-act="f-cat" data-cat="${k}" aria-pressed="${S.filter.cat === k}">${l}</button>`).join('')}
+        </div>` : '';
+      return `${crumbsHtml()}
+        <header class="head"><h1 class="title" data-title>${esc(site.name)}</h1><p class="lede"><span class="sd ${side}"></span>${SIDES[side].label} sur ${esc(m.name)} (${esc(site.floor)})</p></header>
+        ${noticeHtml()}${opChips}${catChips}
+        ${all.length ? `<div class="toolbar"><span class="count">${nfmt(list.length, 'vidéo', 'vidéos')}</span>${admin ? `<button class="btn btn-accent btn-sm" data-act="add-strat">${icon('plus', 18)} Ajouter</button>` : ''}</div>` : ''}
+        ${list.length ? `<div class="cards">${list.map(cardHtml).join('')}</div>` : emptyStrats(all.length)}`;
+    }
+    function cardHtml(s, i) {
+      const op = s.operator_id ? S.I.opById.get(s.operator_id) : null;
+      const short = s.kind === 'short';
+      let thumb;
+      if (s.provider === 'youtube' && short) {
+        const u = ytThumb(s.video_id, 'hqdefault');
+        thumb = `<span class="sbg" style="background-image:url('${u}')"></span><span class="sfg" style="background-image:url('${u}')"></span>`;
+      } else if (s.provider === 'youtube') {
+        thumb = `<img src="${ytThumb(s.video_id)}" alt="" loading="${i < 8 ? 'eager' : 'lazy'}" decoding="async">`;
+      } else thumb = `<span class="fart" style="--h:${hueOf(s.id)}">${icon('film', 30)}</span>`;
+      const seg = s.start_seconds || s.end_seconds ? `${fmtTime(s.start_seconds || 0)}${s.end_seconds ? `–${fmtTime(s.end_seconds)}` : ''}` : '';
+      const admin = S.admin.isAdmin;
+      return `<div class="card${admin ? ' admin' : ''}" role="button" tabindex="0" data-act="play" data-id="${s.id}" aria-label="${esc(`${s.title}, ${op ? op.name : 'sans agent'}`)}">
+        <div class="thw">
+          <div class="th">${thumb}
+            <span class="play">${icon('play', 18)}</span>
+            <span class="tags">${s.pinned ? `<span class="tag" title="Épinglée">${icon('pin', 12)}</span>` : ''}${short ? '<span class="tag">Short</span>' : ''}${seg ? `<span class="tag">${seg}</span>` : ''}</span>
+            ${i < 9 ? `<kbd class="kbd">${i + 1}</kbd>` : ''}
+          </div>
+          <span class="opx">${opAvatar(op, 44)}</span>
+        </div>
+        <div class="cbody">
+          <div class="ctitle">${esc(s.title)}</div>
+          <div class="cmeta"><span class="opn">${esc(op ? op.name : 'Sans agent')}</span><span class="cat">${esc(CAT[s.category] || 'Autre')}</span></div>
+        </div>
+        ${admin ? `<button class="more" data-act="strat-menu" data-id="${s.id}" aria-label="Options de la vidéo">${icon('ellipsis', 20)}</button>` : ''}
+      </div>`;
+    }
+    function emptyStrats(total) {
+      if (total) return `<div class="empty"><h2>Aucune vidéo avec ces filtres</h2><p>Retire un filtre pour revoir toute la liste.</p><button class="btn btn-glass btn-sm" data-act="f-reset">Afficher tout</button></div>`;
+      const admin = S.admin.isAdmin;
+      return `<div class="empty"><span class="ico">${icon('film', 34)}</span><h2>Aucune vidéo ici</h2>
+        <p>${admin ? 'Colle un lien YouTube ou un Short pour ranger ta première stratégie sur ce BP.' : 'Connecte-toi pour ajouter tes vidéos sur ce BP.'}</p>
+        ${admin ? `<button class="btn btn-accent" data-act="add-strat">${icon('plus', 18)} Ajouter une vidéo</button>` : `<button class="btn btn-glass" data-act="account">${icon('person', 18)} Se connecter</button>`}</div>`;
+    }
+    function viewSkeleton() {
+      return `<div class="sk sk-t"></div><div class="maps">${'<div class="sk"></div>'.repeat(8)}</div>`;
+    }
+    function viewError() {
+      return `<div class="empty" role="alert"><span class="ico">${icon('warning', 34)}</span><h2>Base inaccessible</h2><p>${esc(S.error || 'Erreur inconnue.')}</p>
+        <button class="btn btn-primary" data-act="reload">${icon('refresh', 18)} Réessayer</button>
+        ${CFG.source === 'local' ? '<button class="btn btn-glass btn-sm" data-act="config-reset">Changer de projet Supabase</button>' : ''}</div>`;
+    }
+    function viewSetup() {
+      return `<div class="setup"><div class="panel">
+        <span class="mark">${icon('logo', 34)}</span>
+        <h1>Connecte ta base</h1>
+        <p>Colle l’URL et la clé <b>publishable</b> de ton projet Supabase (Project Settings › API Keys).</p>
+        <form id="setup-form" novalidate>
+          <label class="fld"><span class="lbl">URL du projet</span><input class="input" name="url" type="url" inputmode="url" placeholder="https://xxxx.supabase.co" autocomplete="off" autocapitalize="off" spellcheck="false" required></label>
+          <label class="fld"><span class="lbl">Clé publishable</span><input class="input" name="key" type="text" placeholder="sb_publishable_…" autocomplete="off" autocapitalize="off" spellcheck="false" required></label>
+          <p class="form-err" data-err hidden></p>
+          <button class="btn btn-primary btn-block" type="submit">Tester et enregistrer</button>
+        </form>
+        <p class="hint">Ces valeurs restent sur cet appareil. Pour tous tes appareils d’un coup, colle-les dans <code>config.js</code> sur GitHub.</p>
+      </div></div>`;
+    }
+
+    // ─────────────── 7. Lecteur (YouTube préchargé + fichiers) ───────────────
+    let ytApi = null;
+    function loadYT() {
+      if (window.YT?.Player) return Promise.resolve(window.YT);
+      if (ytApi) return ytApi;
+      ytApi = new Promise((resolve, reject) => {
+        const prev = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = () => { try { prev?.(); } catch { /* ignore */ } resolve(window.YT); };
+        const s = document.createElement('script');
+        s.src = 'https://www.youtube.com/iframe_api';
+        s.async = true;
+        s.onerror = () => { ytApi = null; s.remove(); reject(new Error('youtube-api')); };
+        document.head.appendChild(s);
+        setTimeout(() => { if (!window.YT?.Player) { ytApi = null; reject(new Error('youtube-timeout')); } }, 15000);
+      });
+      return ytApi;
+    }
+    const YT_ERRORS = {
+      2: 'Ce lien YouTube est invalide.',
+      5: 'Ce navigateur ne peut pas lire cette vidéo.',
+      100: 'Vidéo introuvable ou passée en privé.',
+      101: 'L’auteur a désactivé la lecture sur d’autres sites.',
+      150: 'L’auteur a désactivé la lecture sur d’autres sites.',
+      153: 'YouTube refuse la lecture intégrée sur cette page.',
+    };
+    const P = {
+      isOpen: false, cur: null, yt: null, ready: false, warming: null, pending: null,
+      played: false, autoMuted: false, timer: 0, lastFocus: null, el: {},
+
+      init() {
+        const g = (id) => document.getElementById(id);
+        this.el = { root: g('player'), shell: g('pl-shell'), head: g('pl-head'), wrap: g('pl-wrap'), stage: g('pl-stage'), host: g('yt-host'), video: g('pl-video'), poster: g('pl-poster'), amb: g('pl-amb'), err: g('pl-err'), unmute: g('pl-unmute'), title: g('pl-t'), meta: g('pl-m'), op: g('pl-op'), notes: g('pl-notes'), acts: g('pl-acts'), ctrl: g('pl-ctrl') };
+        this.el.unmute.innerHTML = `${icon('speaker', 18)} Activer le son`;
+        const closeOnEmpty = (e) => { if (e.target === e.currentTarget) closePlayer(); };
+        this.el.wrap.addEventListener('click', closeOnEmpty);
+        this.el.shell.addEventListener('click', closeOnEmpty);
+        let raf = 0;
+        window.addEventListener('resize', () => { if (!this.isOpen) return; cancelAnimationFrame(raf); raf = requestAnimationFrame(() => this.size()); }, { passive: true });
+        this.syncControls();
+      },
+      warm() {
+        if (this.warming) return this.warming;
+        this.warming = loadYT().then((YT) => new Promise((resolve) => {
+          const mount = document.createElement('div');
+          this.el.host.appendChild(mount);
+          this.yt = new YT.Player(mount, {
+            host: 'https://www.youtube-nocookie.com',
+            width: '100%', height: '100%',
+            playerVars: { autoplay: 0, controls: 1, playsinline: 1, rel: 0, iv_load_policy: 3, modestbranding: 1, fs: 1, enablejsapi: 1, origin: location.origin },
+            events: {
+              onReady: () => {
+                this.ready = true;
+                resolve(this.yt);
+                const p = this.pending;
+                this.pending = null;
+                if (p && this.cur?.id === p.id) this.load(p);
+              },
+              onStateChange: (e) => this.onState(e.data),
+              onError: (e) => this.onError(e.data),
+            },
+          });
+        }));
+        this.warming.catch(() => {
+          this.warming = null;
+          if (this.cur?.provider === 'youtube' && !this.ready) this.showError('Le lecteur YouTube ne répond pas. Vérifie ta connexion puis réessaie.');
+        });
+        return this.warming;
+      },
+      prefetch(s) {
+        this.warm();
+        if (s.provider !== 'youtube' || !this.ready || this.isOpen) return;
+        try { this.yt.cueVideoById({ videoId: s.video_id, startSeconds: s.start_seconds || 0 }); } catch { /* ignore */ }
+      },
+      open(s) {
+        if (this.isOpen && this.cur?.id === s.id) return;
+        this.fill(s);
+        if (!this.isOpen) {
+          this.isOpen = true;
+          this.lastFocus = document.activeElement;
+          const root = this.el.root;
+          root.inert = false; root.removeAttribute('inert');
+          root.setAttribute('aria-hidden', 'false');
+          root.classList.add('open');
+          document.documentElement.classList.add('lock');
+          setTimeout(() => this.el.shell.focus({ preventScroll: true }), 60);
+        }
+        this.load(s);
+      },
+      close() {
+        if (!this.isOpen) return;
+        this.isOpen = false;
+        clearTimeout(this.timer);
+        const root = this.el.root;
+        root.classList.remove('open');
+        root.inert = true; root.setAttribute('inert', '');
+        root.setAttribute('aria-hidden', 'true');
+        document.documentElement.classList.remove('lock');
+        this.pending = null;
+        try { this.yt?.stopVideo?.(); } catch { /* ignore */ }
+        const v = this.el.video;
+        try { v.pause(); } catch { /* ignore */ }
+        if (v.getAttribute('src')) { v.removeAttribute('src'); try { v.load(); } catch { /* ignore */ } }
+        this.cur = null;
+        this.el.stage.classList.remove('playing', 'err');
+        this.lastFocus?.focus?.({ preventScroll: true });
+      },
+      fill(s) {
+        const op = s.operator_id ? S.I.opById.get(s.operator_id) : null;
+        const site = S.I.siteById.get(s.site_id);
+        const m = site && S.I.mapById.get(site.map_id);
+        this.el.root.dataset.side = s.side;
+        this.el.title.textContent = s.title;
+        this.el.op.innerHTML = opAvatar(op, 44);
+        this.el.meta.innerHTML = `<span class="sidepill ${s.side}">${SIDES[s.side].label}</span><span class="ell">${esc(m?.name || '')}, ${esc(site?.name || '')}</span>`;
+        this.el.notes.textContent = s.notes || '';
+        this.el.acts.innerHTML = S.admin.isAdmin ? `<button class="circle glass-btn" data-act="strat-edit" data-id="${s.id}" aria-label="Modifier la vidéo">${icon('pencil', 19)}</button>` : '';
+        if (s.provider === 'youtube') { this.el.amb.src = ytThumb(s.video_id, 'hqdefault'); this.el.amb.classList.add('on'); }
+        else { this.el.amb.removeAttribute('src'); this.el.amb.classList.remove('on'); }
+      },
+      load(s) {
+        this.cur = s; this.played = false; this.autoMuted = false;
+        clearTimeout(this.timer);
+        const { stage, poster, err, unmute, video } = this.el;
+        stage.classList.remove('playing', 'err');
+        stage.classList.toggle('short', s.kind === 'short');
+        stage.classList.toggle('file', s.provider === 'file');
+        err.hidden = true; unmute.hidden = true;
+        if (s.provider === 'youtube') { poster.src = ytThumb(s.video_id, 'hqdefault'); poster.hidden = false; }
+        else { poster.removeAttribute('src'); poster.hidden = true; }
+        this.syncControls();
+        this.size();
+        if (s.provider === 'file') {
+          try { this.yt?.stopVideo?.(); } catch { /* ignore */ }
+          this.loadFile(s);
+          return;
+        }
+        try { video.pause(); } catch { /* ignore */ }
+        if (video.getAttribute('src')) { video.removeAttribute('src'); try { video.load(); } catch { /* ignore */ } }
+        if (!this.ready) { this.pending = s; this.warm(); return; }
+        const opts = { videoId: s.video_id, startSeconds: s.start_seconds || 0 };
+        if (s.end_seconds) opts.endSeconds = s.end_seconds;
+        try {
+          if (S.prefs.muted) this.yt.mute(); else this.yt.unMute();
+          this.yt.loadVideoById(opts);
+        } catch { this.showError('Lecture impossible.'); return; }
+        this.timer = setTimeout(() => {
+          if (this.cur !== s || this.played) return;
+          let st = -1;
+          try { st = this.yt.getPlayerState(); } catch { /* ignore */ }
+          if (st !== 1 && st !== 3) {
+            // lecture automatique bloquée (souvent sur iPhone) : on relance en muet
+            try { this.yt.mute(); this.yt.playVideo(); } catch { /* ignore */ }
+            this.autoMuted = !S.prefs.muted;
+            this.syncControls();
+          }
+        }, 1600);
+      },
+      loadFile(s) {
+        const v = this.el.video;
+        const start = s.start_seconds || 0;
+        v.muted = S.prefs.muted;
+        v.onloadedmetadata = () => {
+          if (start && v.currentTime < start - 0.3) { try { v.currentTime = start; } catch { /* ignore */ } }
+          v.playbackRate = S.prefs.rate;
+          if (v.videoHeight > v.videoWidth && !this.el.stage.classList.contains('short')) { this.el.stage.classList.add('short'); this.size(); }
+        };
+        v.onplaying = () => { this.played = true; this.el.stage.classList.add('playing'); };
+        v.ontimeupdate = () => { if (s.end_seconds && v.currentTime >= s.end_seconds) { if (S.prefs.loop) v.currentTime = start; else v.pause(); } };
+        v.onended = () => { if (S.prefs.loop && this.isOpen) { v.currentTime = start; v.play().catch(() => {}); } };
+        v.onerror = () => { if (this.cur === s) this.showError('Ce fichier vidéo est illisible ou inaccessible.', true); };
+        // le fragment #t= démarre directement au bon moment, sans afficher le début
+        v.src = `${s.video_url.split('#')[0]}${start ? `#t=${start}` : ''}`;
+        v.play().catch(() => {
+          v.muted = true;
+          this.autoMuted = !S.prefs.muted;
+          this.syncControls();
+          v.play().catch(() => {});
+        });
+      },
+      onState(st) {
+        const s = this.cur;
+        if (!s || s.provider !== 'youtube' || !this.isOpen) return;
+        if (st === 1) {
+          this.played = true;
+          this.el.stage.classList.add('playing');
+          try { if (this.yt.getPlaybackRate() !== S.prefs.rate) this.yt.setPlaybackRate(S.prefs.rate); } catch { /* ignore */ }
+          if (this.autoMuted) this.el.unmute.hidden = false;
+        } else if (st === 0 && S.prefs.loop) {
+          try {
+            if (s.end_seconds) this.yt.loadVideoById({ videoId: s.video_id, startSeconds: s.start_seconds || 0, endSeconds: s.end_seconds });
+            else { this.yt.seekTo(s.start_seconds || 0, true); this.yt.playVideo(); }
+          } catch { /* ignore */ }
+        }
+      },
+      onError(code) {
+        if (!this.cur || !this.isOpen) return;
+        this.showError(YT_ERRORS[code] || 'Lecture impossible.', true);
+      },
+      showError(msg, withLink = false) {
+        const s = this.cur;
+        this.el.stage.classList.add('err');
+        const url = s?.provider === 'youtube' ? `https://www.youtube.com/watch?v=${s.video_id}${s.start_seconds ? `&t=${s.start_seconds}s` : ''}` : s?.video_url;
+        this.el.err.innerHTML = `${icon('warning', 26)}<p>${esc(msg)}</p>${withLink && url ? `<a class="btn btn-glass btn-sm" href="${esc(url)}" target="_blank" rel="noopener">${s?.provider === 'youtube' ? 'Ouvrir sur YouTube' : 'Ouvrir le fichier'}</a>` : ''}`;
+        this.el.err.hidden = false;
+      },
+      size() {
+        const { root, shell, head, ctrl, notes, stage } = this.el;
+        const cs = getComputedStyle(shell);
+        const gap = parseFloat(cs.rowGap) || 12;
+        const availW = shell.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+        const notesH = notes.textContent.trim() ? notes.offsetHeight + gap : 0;
+        const availH = root.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - head.offsetHeight - ctrl.offsetHeight - notesH - gap * 2;
+        const ratio = stage.classList.contains('short') ? 9 / 16 : 16 / 9;
+        let w = availW, h = w / ratio;
+        if (h > availH) { h = availH; w = h * ratio; }
+        w = Math.max(200, Math.floor(w)); h = Math.max(200, Math.floor(h));
+        stage.style.width = `${w}px`; stage.style.height = `${h}px`;
+      },
+      setRate(r) {
+        S.prefs.rate = r; savePrefs();
+        try {
+          if (this.cur?.provider === 'file') this.el.video.playbackRate = r;
+          else this.yt?.setPlaybackRate(r);
+        } catch { /* ignore */ }
+        this.syncControls();
+      },
+      toggleLoop() {
+        S.prefs.loop = !S.prefs.loop; savePrefs();
+        this.syncControls();
+        toast(S.prefs.loop ? 'Lecture en boucle activée' : 'Lecture en boucle désactivée', 'info', 1600);
+      },
+      toggleSound() {
+        const muted = S.prefs.muted || this.autoMuted;
+        if (muted) {
+          S.prefs.muted = false; this.autoMuted = false;
+          try { this.yt?.unMute(); } catch { /* ignore */ }
+          this.el.video.muted = false;
+        } else {
+          S.prefs.muted = true;
+          try { this.yt?.mute(); } catch { /* ignore */ }
+          this.el.video.muted = true;
+        }
+        this.el.unmute.hidden = true;
+        savePrefs(); this.syncControls();
+      },
+      togglePlay() {
+        if (!this.cur) return;
+        if (this.cur.provider === 'file') { const v = this.el.video; if (v.paused) v.play().catch(() => {}); else v.pause(); return; }
+        try { if (this.yt.getPlayerState() === 1) this.yt.pauseVideo(); else this.yt.playVideo(); } catch { /* ignore */ }
+      },
+      syncControls() {
+        $$('#pl-rates button').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.rate) === S.prefs.rate)));
+        $('#pl-loop').setAttribute('aria-pressed', String(S.prefs.loop));
+        const muted = S.prefs.muted || this.autoMuted;
+        const snd = $('#pl-sound');
+        snd.innerHTML = icon(muted ? 'speaker-off' : 'speaker', 21);
+        snd.setAttribute('aria-label', muted ? 'Activer le son' : 'Couper le son');
+        snd.setAttribute('aria-pressed', String(!muted));
+      },
+    };
+
+    // ─────────────── 8. Feuilles, toasts, formulaires ───────────────
+    const Sheet = {
+      stack: [],
+      get top() { return this.stack[this.stack.length - 1] || null; },
+      open({ title, body, onMount }) {
+        const layer = document.createElement('div');
+        layer.className = 'layer';
+        layer.innerHTML = `<div class="scrim" data-act="sheet-close"></div>
+          <section class="sheet" role="dialog" aria-modal="true" aria-label="${esc(title)}">
+            <div class="sheet-top"><div class="grab" aria-hidden="true"></div>
+              <header class="sheet-h"><h2>${esc(title)}</h2><button class="sheet-x" data-act="sheet-close" aria-label="Fermer">${icon('xmark', 18)}</button></header></div>
+            <div class="sheet-b">${body}</div>
+          </section>`;
+        $('#sheets').appendChild(layer);
+        const entry = { layer, paint: null, lastFocus: document.activeElement };
+        this.stack.push(entry);
+        document.documentElement.classList.add('lock');
+        requestAnimationFrame(() => requestAnimationFrame(() => layer.classList.add('open')));
+        this.drag(layer, entry);
+        onMount?.(layer.querySelector('.sheet-b'), entry);
+        return entry;
+      },
+      close(entry = this.top) {
+        if (!entry || !this.stack.includes(entry)) return;
+        this.stack = this.stack.filter((e) => e !== entry);
+        entry.layer.classList.add('closing');
+        entry.layer.classList.remove('open');
+        setTimeout(() => entry.layer.remove(), 320);
+        if (!this.stack.length && !P.isOpen) document.documentElement.classList.remove('lock');
+        if (entry.lastFocus?.isConnected) entry.lastFocus.focus({ preventScroll: true });
+      },
+      closeAll() { [...this.stack].reverse().forEach((e) => this.close(e)); },
+      repaint() { this.stack.forEach((e) => e.paint?.()); },
+      drag(layer, entry) {
+        const sheet = layer.querySelector('.sheet');
+        const handle = layer.querySelector('.sheet-top');
+        let y0 = null, dy = 0;
+        handle.addEventListener('touchstart', (e) => { y0 = e.touches[0].clientY; dy = 0; sheet.style.transition = 'none'; }, { passive: true });
+        handle.addEventListener('touchmove', (e) => { if (y0 == null) return; dy = Math.max(0, e.touches[0].clientY - y0); sheet.style.transform = `translateY(${dy}px)`; }, { passive: true });
+        handle.addEventListener('touchend', () => {
+          if (y0 == null) return;
+          sheet.style.transition = ''; sheet.style.transform = '';
+          y0 = null;
+          if (dy > 90) this.close(entry);
+        });
+      },
+    };
+    function toast(msg, type = 'ok', ms = 2600) {
+      const t = document.createElement('div');
+      t.className = `toast ${type}`;
+      t.setAttribute('role', type === 'err' ? 'alert' : 'status');
+      t.innerHTML = `${icon(type === 'err' ? 'warning' : type === 'info' ? 'refresh' : 'check', 17)}<span>${esc(msg)}</span>`;
+      const box = $('#toasts');
+      box.appendChild(t);
+      while (box.children.length > 3) box.firstElementChild.remove();
+      setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 300); }, ms);
+    }
+    function formErr(f, msg) {
+      const p = f.querySelector('[data-err]');
+      if (!p) { if (msg) toast(msg, 'err'); return; }
+      p.textContent = msg || '';
+      p.hidden = !msg;
+    }
+    function setBusy(f, busy) {
+      const b = f.querySelector('[type="submit"]');
+      if (b) { b.disabled = busy; b.classList.toggle('busy', busy); }
+    }
+    function arm(el, label) {
+      if (el.dataset.armed === '1') return true;
+      const html = el.innerHTML;
+      el.dataset.armed = '1';
+      el.dataset.html = html;
+      el.classList.add('armed');
+      el.innerHTML = `${icon('trash', 18)} ${esc(label)}`;
+      setTimeout(() => disarm(el), 3500);
+      return false;
+    }
+    function disarm(el) {
+      if (!el?.isConnected || el.dataset.armed !== '1') return;
+      el.dataset.armed = '';
+      el.classList.remove('armed');
+      el.innerHTML = el.dataset.html || '';
+    }
+    function loadError(e) {
+      const m = e?.message || '';
+      if (e?.name === 'AbortError') return 'Supabase ne répond pas. Le projet est peut-être en pause : ouvre-le sur supabase.com pour le réactiver.';
+      if (e?.status === 401 || e?.status === 403 || /api key/i.test(m)) return 'Clé Supabase refusée. Vérifie la clé publishable dans config.js.';
+      if (e?.status === 404 || e?.code === 'PGRST205' || /schema cache|does not exist/i.test(m)) return 'Les tables n’existent pas encore. Exécute supabase-setup.sql dans Supabase › SQL Editor.';
+      if (/failed to fetch|networkerror|load failed/i.test(m)) return 'Connexion impossible. Vérifie ton réseau ou réactive le projet Supabase s’il est en pause.';
+      return m || 'Erreur inconnue.';
+    }
+    function dbError(e) {
+      const msg = e?.message || String(e || '');
+      const code = e?.code || '';
+      if (/Cet agent ne joue pas/.test(msg)) return msg;
+      if (code === '42501' || /row-level security|permission denied/i.test(msg)) return 'Action refusée : ce compte n’a pas les droits de gestion.';
+      if (code === '23505' || /duplicate key/i.test(msg)) return 'Cet élément existe déjà.';
+      if (code === '23514' || /check constraint/i.test(msg)) return 'Valeur refusée par la base. Vérifie le lien et les temps de début et de fin.';
+      if (code === '23503') return 'Élément lié introuvable. Actualise les données.';
+      if (/jwt|token|session|not authenticated/i.test(msg)) return 'Session expirée : reconnecte-toi.';
+      if (/failed to fetch|networkerror|load failed/i.test(msg)) return 'Réseau indisponible.';
+      if (/mime type|exceeded the maximum|payload too large/i.test(msg)) return 'Image refusée : PNG, JPG, WebP, SVG ou GIF de moins de 5 Mo.';
+      return msg || 'Erreur inattendue.';
+    }
+
+    // ─────────────── 9. Supabase (connexion & écritures) ───────────────
+    let sbPromise = null;
+    function sb() {
+      if (!sbPromise) {
+        sbPromise = (async () => {
+          let mod = null, lastErr = null;
+          for (const url of SB_MODULES) { try { mod = await import(url); break; } catch (e) { lastErr = e; } }
+          if (!mod) throw lastErr || new Error('supabase-js');
+          return mod.createClient(CFG.url, CFG.key, { auth: { storageKey: KEYS.auth, persistSession: true, autoRefreshToken: true, detectSessionInUrl: false } });
+        })();
+        sbPromise.catch(() => { sbPromise = null; });
+      }
+      return sbPromise;
+    }
+    let authWired = false;
+    function wireAuth(client) {
+      if (authWired) return;
+      authWired = true;
+      client.auth.onAuthStateChange((_event, session) => { setTimeout(() => applySession(session), 0); });
+    }
+    async function initAuth() {
+      if (!CFG.ok) return;
+      let stored = null;
+      try { stored = localStorage.getItem(KEYS.auth); } catch { /* ignore */ }
+      if (!stored) return;
+      try { wireAuth(await sb()); } catch { /* hors ligne : on réessaiera à la connexion */ }
+    }
+    async function applySession(session) {
+      const user = session?.user || null;
+      let isAdmin = false;
+      if (user) {
+        try { const c = await sb(); const { data, error } = await c.rpc('is_admin'); isAdmin = !error && data === true; } catch { /* ignore */ }
+      }
+      const changed = (S.admin.user?.id || null) !== (user?.id || null) || S.admin.isAdmin !== isAdmin;
+      S.admin = { user, isAdmin };
+      document.documentElement.classList.toggle('is-admin', isAdmin);
+      if (changed && S.status === 'ready') {
+        render();
+        if (P.isOpen && P.cur) P.fill(P.cur);
+      }
+    }
+    async function write(fn) {
+      try {
+        const c = await sb();
+        const { data, error } = await fn(c);
+        if (error) throw error;
+        return data ?? true;
+      } catch (e) {
+        toast(dbError(e), 'err', 4200);
+        return null;
+      }
+    }
+    async function doLogin(f, entry) {
+      const email = f.email.value.trim(), password = f.password.value;
+      if (!email || !password) return formErr(f, 'Renseigne ton email et ton mot de passe.');
+      formErr(f, ''); setBusy(f, true);
+      try {
+        const c = await sb();
+        wireAuth(c);
+        const { data, error } = await c.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        await applySession(data.session);
+        Sheet.close(entry);
+        if (S.admin.isAdmin) toast('Mode gestion activé');
+        else toast('Connecté, mais ce compte n’a pas les droits de gestion.', 'err', 4200);
+      } catch (e) {
+        const m = e?.message || '';
+        formErr(f, /invalid login|invalid credentials/i.test(m) ? 'Email ou mot de passe incorrect.' : /email not confirmed/i.test(m) ? 'Email non confirmé : coche « Auto Confirm User » en créant le compte dans Supabase.' : dbError(e));
+      } finally { setBusy(f, false); }
+    }
+    async function resizeImage(file, max, type) {
+      try {
+        const bmp = await createImageBitmap(file);
+        const scale = Math.min(1, max / Math.max(bmp.width, bmp.height));
+        if (scale === 1 && file.size < 350000) { bmp.close?.(); return null; }
+        const w = Math.max(1, Math.round(bmp.width * scale)), h = Math.max(1, Math.round(bmp.height * scale));
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(bmp, 0, 0, w, h);
+        bmp.close?.();
+        return await new Promise((res) => canvas.toBlob((b) => res(b), type, 0.86));
+      } catch { return null; }
+    }
+    async function uploadImage(file, folder, base) {
+      const c = await sb();
+      let blob = file;
+      let type = file.type || 'image/png';
+      let ext = (file.name.split('.').pop() || 'png').toLowerCase().replace(/[^a-z0-9]/g, '') || 'png';
+      if (type !== 'image/svg+xml' && type !== 'image/gif') {
+        const out = await resizeImage(file, folder === 'maps' ? 1280 : 256, folder === 'maps' ? 'image/jpeg' : 'image/png');
+        if (out) { blob = out; type = out.type; ext = type === 'image/jpeg' ? 'jpg' : type === 'image/webp' ? 'webp' : 'png'; }
+      }
+      const path = `${folder}/${slugify(base)}-${Date.now().toString(36)}.${ext}`;
+      const { error } = await c.storage.from('media').upload(path, blob, { contentType: type, cacheControl: '31536000', upsert: false });
+      if (error) throw error;
+      return c.storage.from('media').getPublicUrl(path).data.publicUrl;
+    }
+
+    // ─────────────── 10. Gestion (ajout, édition, suppression) ───────────────
+    function openAccount() {
+      if (!CFG.ok) return;
+      const u = S.admin.user;
+      if (!u) return openLogin();
+      const here = depthOf(S.route) === 3;
+      const m = curMap();
+      Sheet.open({
+        title: 'Compte',
+        body: `<div class="acct"><span class="av">${esc((u.email || '?')[0].toUpperCase())}</span><span><b>${esc(u.email || '')}</b><small>${S.admin.isAdmin ? 'Mode gestion actif' : 'Lecture seule : ce compte n’est pas admin'}</small></span></div>
+          <div class="menu">
+            ${S.admin.isAdmin ? `
+            <button class="mi" data-act="add-strat">${icon('plus', 21)} Ajouter une vidéo${here ? ' sur ce BP' : ''}</button>
+            <button class="mi" data-act="manage-maps">${icon('map', 21)} Gérer les cartes</button>
+            <button class="mi" data-act="manage-sites">${icon('grid', 21)} Gérer les BP${m ? ` de ${esc(m.name)}` : ''}</button>
+            <button class="mi" data-act="manage-ops">${icon('person', 21)} Agents et logos</button>` : ''}
+            <button class="mi" data-act="reload">${icon('refresh', 21)} Actualiser les données</button>
+            <button class="mi danger" data-act="logout">${icon('logout', 21)} Se déconnecter</button>
+          </div>`,
+      });
+    }
+    function openLogin() {
+      Sheet.open({
+        title: 'Connexion',
+        body: `<p class="sheet-lede">Connecte-toi avec le compte créé dans Supabase pour ajouter, modifier et supprimer des vidéos.</p>
+          <form novalidate>
+            <label class="fld"><span class="lbl">Email</span><input class="input" name="email" type="email" inputmode="email" autocomplete="username" autocapitalize="off" spellcheck="false" required></label>
+            <label class="fld"><span class="lbl">Mot de passe</span><input class="input" name="password" type="password" autocomplete="current-password" required></label>
+            <p class="form-err" data-err hidden></p>
+            <button class="btn btn-primary btn-block" type="submit">Se connecter</button>
+          </form>`,
+        onMount: (b, entry) => {
+          const f = b.querySelector('form');
+          f.addEventListener('submit', (e) => { e.preventDefault(); doLogin(f, entry); });
+          if (matchMedia('(pointer: fine)').matches) setTimeout(() => f.email.focus(), 300);
+        },
+      });
+    }
+
+    // —— Formulaire vidéo ——
+    async function fetchTitle(p) {
+      const target = encodeURIComponent(`https://www.youtube.com/watch?v=${p.videoId}`);
+      for (const url of [`https://www.youtube.com/oembed?format=json&url=${target}`, `https://noembed.com/embed?url=${target}`]) {
+        try {
+          const ctrl = new AbortController();
+          const t = setTimeout(() => ctrl.abort(), 3500);
+          const res = await fetch(url, { signal: ctrl.signal });
+          clearTimeout(t);
+          if (res.ok) { const j = await res.json(); if (j?.title) return String(j.title); }
+        } catch { /* CORS ou réseau : on passe à la suite */ }
+      }
+      return null;
+    }
+    function openStratForm(existing = null) {
+      if (!S.admin.isAdmin) return openAccount();
+      if (!S.data.maps.length) return toast('Ajoute d’abord une carte.', 'err');
+      const r = S.route;
+      const st = existing
+        ? { site_id: existing.site_id, side: existing.side, operator_id: existing.operator_id, category: existing.category, kind: existing.kind, parsed: parseVideoUrl(existing.video_url) }
+        : { site_id: r.site || null, side: r.side || 'attack', operator_id: null, category: 'trick', kind: null, parsed: null };
+      const site = st.site_id && S.I.siteById.get(st.site_id);
+      st.map_id = site ? site.map_id : (curMap()?.id || S.data.maps[0].id);
+      const e = existing || {};
+      const body = `<form novalidate>
+          <label class="fld"><span class="lbl">Lien de la vidéo</span>
+            <input class="input" name="video_url" type="url" inputmode="url" placeholder="Lien YouTube, Short ou fichier .mp4" value="${esc(e.video_url || '')}" autocomplete="off" autocapitalize="off" spellcheck="false" required></label>
+          <div class="preview" data-preview hidden></div>
+          <label class="fld"><span class="lbl">Titre</span><input class="input" name="title" maxlength="140" placeholder="Ex. Grenade d’ouverture sur CCTV" value="${esc(e.title || '')}" autocomplete="off"></label>
+          <div class="two">
+            <label class="fld"><span class="lbl">Carte</span><select class="select" name="map_id">${S.data.maps.map((m) => `<option value="${m.id}"${m.id === st.map_id ? ' selected' : ''}>${esc(m.name)}</option>`).join('')}</select></label>
+            <label class="fld"><span class="lbl">BP</span><select class="select" name="site_id" data-sites></select></label>
+          </div>
+          <div class="fld"><span class="lbl">Camp</span><div class="segc" role="radiogroup" aria-label="Camp" data-sides>
+            <button type="button" role="radio" data-side="attack">Attaque</button><button type="button" role="radio" data-side="defense">Défense</button></div></div>
+          <div class="fld"><span class="lbl">Agent <span class="hint" data-op-name></span></span>
+            <input class="input" type="search" placeholder="Filtrer les agents" data-op-q autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Filtrer les agents">
+            <div class="picker" role="radiogroup" aria-label="Agent" data-picker></div></div>
+          <div class="fld"><span class="lbl">Type</span><div class="wrapc" role="radiogroup" aria-label="Type" data-cats>${CATS.map(([k, l]) => `<button type="button" class="chip" role="radio" data-cat="${k}">${l}</button>`).join('')}</div></div>
+          <div class="two">
+            <label class="fld"><span class="lbl">Début</span><input class="input" name="start" inputmode="decimal" placeholder="0:00" value="${e.start_seconds != null ? fmtTime(e.start_seconds) : ''}" autocomplete="off"></label>
+            <label class="fld"><span class="lbl">Fin de boucle</span><input class="input" name="end" inputmode="decimal" placeholder="Fin de vidéo" value="${e.end_seconds != null ? fmtTime(e.end_seconds) : ''}" autocomplete="off"></label>
+          </div>
+          <label class="fld"><span class="lbl">Notes</span><textarea class="textarea" name="notes" maxlength="2000" placeholder="Timing, callout, rappel…">${esc(e.notes || '')}</textarea></label>
+          <label class="switch-row"><span>Épingler en haut de la liste</span><input type="checkbox" class="switch" name="pinned"${e.pinned ? ' checked' : ''}></label>
+          <p class="form-err" data-err hidden></p>
+          <div class="form-actions">
+            ${existing ? `<button type="button" class="btn btn-danger" data-act="strat-delete" data-id="${existing.id}">${icon('trash', 18)} Supprimer</button>` : ''}
+            <button type="submit" class="btn btn-primary">${existing ? 'Enregistrer' : 'Ajouter la vidéo'}</button>
+          </div>
+        </form>`;
+      Sheet.open({ title: existing ? 'Modifier la vidéo' : 'Nouvelle vidéo', body, onMount: (b, entry) => mountStratForm(b, st, existing, entry) });
+    }
+    function mountStratForm(body, st, existing, entry) {
+      const f = body.querySelector('form');
+      const elPreview = body.querySelector('[data-preview]');
+      const elSites = body.querySelector('[data-sites]');
+      const elPicker = body.querySelector('[data-picker]');
+      const elOpQ = body.querySelector('[data-op-q]');
+      const elOpName = body.querySelector('[data-op-name]');
+      let titleTouched = Boolean(existing);
+      let seq = 0;
+      f.title.addEventListener('input', () => { titleTouched = f.title.value.trim().length > 0; });
+
+      const fillSites = () => {
+        const sites = S.I.sitesByMap.get(f.map_id.value) || [];
+        if (!sites.some((s) => s.id === st.site_id)) st.site_id = sites[0]?.id || null;
+        elSites.innerHTML = sites.map((s) => `<option value="${s.id}"${s.id === st.site_id ? ' selected' : ''}>${esc(s.floor)} ${esc(s.name)}</option>`).join('') || '<option value="">Aucun BP</option>';
+      };
+      const paintSides = () => $$('[data-side]', body.querySelector('[data-sides]')).forEach((b) => b.setAttribute('aria-checked', String(b.dataset.side === st.side)));
+      const paintPicker = () => {
+        const q = compact(elOpQ.value);
+        const ops = S.data.operators.filter((o) => o.side === st.side);
+        if (st.operator_id && !ops.some((o) => o.id === st.operator_id)) st.operator_id = null;
+        elPicker.innerHTML = `<button type="button" class="pk" role="radio" data-op="" aria-checked="${!st.operator_id}">${opAvatar(null, 44)}<span class="nm">Aucun</span></button>${
+          ops.filter((o) => !q || compact(o.name).includes(q) || o.id === st.operator_id).map((o) => `<button type="button" class="pk" role="radio" data-op="${o.id}" aria-checked="${o.id === st.operator_id}">${opAvatar(o, 44)}<span class="nm">${esc(o.name)}</span></button>`).join('')}`;
+        const sel = st.operator_id && S.I.opById.get(st.operator_id);
+        elOpName.textContent = sel ? `(${sel.name})` : '(aucun)';
+      };
+      const paintCats = () => $$('[data-cat]', body.querySelector('[data-cats]')).forEach((b) => b.setAttribute('aria-checked', String(b.dataset.cat === st.category)));
+      const paintPreview = () => {
+        const p = st.parsed;
+        const raw = f.video_url.value.trim();
+        if (!p) {
+          elPreview.className = 'preview bad';
+          elPreview.innerHTML = raw ? `${icon('warning', 18)}<span>Lien non reconnu. Colle un lien YouTube, un Short ou un fichier .mp4.</span>` : '';
+          elPreview.hidden = !raw;
+          return;
+        }
+        const kind = st.kind || p.kind;
+        const th = p.provider === 'youtube'
+          ? `<span class="pth${kind === 'short' ? ' short' : ''}" style="background-image:url('${ytThumb(p.videoId, 'hqdefault')}')"></span>`
+          : `<span class="pth">${icon('film', 22)}</span>`;
+        elPreview.className = 'preview';
+        elPreview.hidden = false;
+        elPreview.innerHTML = `${th}<span class="pinfo"><span class="ptag">${p.provider === 'youtube' ? 'YouTube' : 'Fichier vidéo'}${p.start ? `, départ à ${fmtTime(p.start)}` : ''}</span>
+          <span class="segc mini" role="radiogroup" aria-label="Format"><button type="button" role="radio" data-kind="video" aria-checked="${kind === 'video'}">Vidéo 16:9</button><button type="button" role="radio" data-kind="short" aria-checked="${kind === 'short'}">Short 9:16</button></span></span>`;
+      };
+      const onLink = debounce(() => {
+        const p = parseVideoUrl(f.video_url.value);
+        const changed = (p?.videoId || p?.url || null) !== (st.parsed?.videoId || st.parsed?.url || null);
+        st.parsed = p;
+        if (changed) st.kind = null;
+        if (p?.start != null && !f.start.value.trim()) f.start.value = fmtTime(p.start);
+        if (p?.end != null && !f.end.value.trim()) f.end.value = fmtTime(p.end);
+        paintPreview();
+        if (p?.provider === 'youtube' && changed && !titleTouched) {
+          const mine = ++seq;
+          fetchTitle(p).then((t) => { if (t && mine === seq && !titleTouched && !f.title.value.trim()) f.title.value = t.slice(0, 140); });
+        }
+      }, 180);
+      f.video_url.addEventListener('input', onLink);
+      f.map_id.addEventListener('change', () => { st.site_id = null; fillSites(); });
+      elSites.addEventListener('change', () => { st.site_id = elSites.value || null; });
+      elOpQ.addEventListener('input', paintPicker);
+      body.addEventListener('click', (ev) => {
+        const b = ev.target.closest('button');
+        if (!b || !body.contains(b) || b.dataset.act) return;
+        if (b.dataset.side) { st.side = b.dataset.side; paintSides(); paintPicker(); }
+        else if (b.dataset.op !== undefined) { st.operator_id = b.dataset.op || null; paintPicker(); }
+        else if (b.dataset.cat) { st.category = b.dataset.cat; paintCats(); }
+        else if (b.dataset.kind) { st.kind = b.dataset.kind; paintPreview(); }
+      });
+      f.addEventListener('submit', (ev) => { ev.preventDefault(); saveStrat(f, st, existing, entry); });
+      fillSites(); paintSides(); paintPicker(); paintCats();
+      if (f.video_url.value) paintPreview();
+      if (!existing && matchMedia('(pointer: fine)').matches) setTimeout(() => f.video_url.focus(), 300);
+    }
+    async function saveStrat(f, st, existing, entry) {
+      const p = parseVideoUrl(f.video_url.value);
+      if (!p) return formErr(f, 'Lien non reconnu. Colle un lien YouTube, un Short ou un fichier .mp4.');
+      const siteId = st.site_id || f.site_id.value;
+      if (!siteId) return formErr(f, 'Choisis un BP (ou ajoute-en un à cette carte).');
+      const start = parseTimeInput(f.start.value), end = parseTimeInput(f.end.value);
+      if (f.start.value.trim() && start == null) return formErr(f, 'Début illisible. Écris par exemple 1:23.');
+      if (f.end.value.trim() && end == null) return formErr(f, 'Fin illisible. Écris par exemple 1:40.');
+      if (end != null && end <= (start || 0)) return formErr(f, 'La fin de boucle doit venir après le début.');
+      const op = st.operator_id ? S.I.opById.get(st.operator_id) : null;
+      const title = (f.title.value.trim() || `${op ? op.name : 'Stratégie'}, ${(CAT[st.category] || 'Trick').toLowerCase()}`).slice(0, 140);
+      const row = {
+        site_id: siteId, side: st.side, operator_id: op ? op.id : null, title, category: st.category,
+        notes: f.notes.value.trim() || null, video_url: p.url, provider: p.provider, video_id: p.videoId,
+        kind: st.kind || p.kind, start_seconds: start, end_seconds: end, pinned: f.pinned.checked,
+      };
+      formErr(f, ''); setBusy(f, true);
+      const data = await write((c) => (existing ? c.from('strategies').update(row).eq('id', existing.id) : c.from('strategies').insert(row)).select().single());
+      setBusy(f, false);
+      if (!data) return;
+      upsertLocal('strategies', data);
+      Sheet.close(entry);
+      toast(existing ? 'Vidéo enregistrée' : 'Vidéo ajoutée');
+      const site = S.I.siteById.get(data.site_id);
+      const m = site && S.I.mapById.get(site.map_id);
+      if (P.isOpen && P.cur?.id === data.id) { P.cur = data; P.fill(data); }
+      if (m && (S.route.site !== data.site_id || S.route.side !== data.side)) go({ map: m.slug, side: data.side, site: data.site_id });
+      else render();
+    }
+    function openStratMenu(id) {
+      const s = S.I.stratById.get(id);
+      if (!s) return;
+      Sheet.open({
+        title: s.title,
+        body: `<div class="menu">
+          <button class="mi" data-act="strat-edit" data-id="${id}">${icon('pencil', 21)} Modifier</button>
+          <button class="mi" data-act="strat-pin" data-id="${id}">${icon('pin', 21)} ${s.pinned ? 'Retirer l’épingle' : 'Épingler en haut'}</button>
+          <button class="mi" data-act="strat-share" data-id="${id}">${icon('link', 21)} Partager le lien</button>
+          <button class="mi danger" data-act="strat-delete" data-id="${id}">${icon('trash', 21)} Supprimer</button>
+        </div>`,
+      });
+    }
+    async function deleteStrat(id, el) {
+      if (!arm(el, 'Confirmer la suppression')) return;
+      const data = await write((c) => c.from('strategies').delete().eq('id', id).select('id'));
+      if (!data) { disarm(el); return; }
+      if (Array.isArray(data) && !data.length) { disarm(el); toast('Suppression refusée : ce compte n’a pas les droits.', 'err'); return; }
+      removeLocal('strategies', id);
+      Sheet.closeAll();
+      if (S.route.video === id) closePlayer();
+      render();
+      toast('Vidéo supprimée');
+    }
+    async function togglePin(id) {
+      const s = S.I.stratById.get(id);
+      if (!s) return;
+      const data = await write((c) => c.from('strategies').update({ pinned: !s.pinned }).eq('id', id).select().single());
+      if (!data) return;
+      upsertLocal('strategies', data);
+      Sheet.closeAll();
+      render();
+      toast(data.pinned ? 'Épinglée en haut' : 'Épingle retirée');
+    }
+    async function shareStrat(id) {
+      const s = S.I.stratById.get(id);
+      const url = `${location.origin}${location.pathname}?video=${id}`;
+      Sheet.closeAll();
+      try {
+        if (navigator.share && matchMedia('(pointer: coarse)').matches) { await navigator.share({ title: s?.title || 'R6 Playbook', url }); return; }
+        await navigator.clipboard.writeText(url);
+        toast('Lien copié');
+      } catch (e) { if (e?.name !== 'AbortError') toast('Copie impossible sur ce navigateur.', 'err'); }
+    }
+
+    // —— Cartes ——
+    function openManageMaps() {
+      Sheet.open({
+        title: 'Cartes', body: '<div data-root></div>',
+        onMount: (b, entry) => {
+          const root = b.querySelector('[data-root]');
+          entry.paint = () => paintManageMaps(root);
+          root.addEventListener('submit', (e) => { e.preventDefault(); addMap(e.target); });
+          entry.paint();
+        },
+      });
+    }
+    function paintManageMaps(root) {
+      root.innerHTML = `
+        <form class="inline-add" novalidate><input class="input" name="name" placeholder="Nouvelle carte, ex. Favela" maxlength="60" autocomplete="off" required aria-label="Nom de la nouvelle carte"><button class="btn btn-primary" type="submit">${icon('plus', 18)} Ajouter</button></form>
+        <div class="tools"><label class="btn btn-glass btn-sm file-btn">${icon('photo', 18)} Importer des images<input type="file" accept="image/*" multiple data-bulk="maps"></label></div>
+        <p class="hint">Touche une vignette pour changer son image. Pour un import groupé, nomme chaque fichier comme la carte (clubhouse.jpg, theme-park.png…). L’interrupteur masque une carte sans la supprimer.</p>
+        <div class="mlist">${S.data.maps.map((m) => `
+          <div class="mrow">
+            <label class="thumb-btn" aria-label="Changer l’image de ${esc(m.name)}">${m.image_url ? `<img src="${esc(m.image_url)}" alt="">` : `<span class="art" style="--h:${hueOf(m.slug)}"></span>`}<span class="tb-ico">${icon('photo', 13)}</span><input type="file" accept="image/*" data-upload="maps" data-id="${m.id}"></label>
+            <input class="input" value="${esc(m.name)}" maxlength="60" data-edit="maps.name" data-id="${m.id}" aria-label="Nom de la carte" autocomplete="off">
+            <input type="checkbox" class="switch" data-edit="maps.is_active" data-id="${m.id}"${m.is_active ? ' checked' : ''} aria-label="Afficher ${esc(m.name)}">
+            <button class="icon-btn" data-act="map-delete" data-id="${m.id}" aria-label="Supprimer ${esc(m.name)}">${icon('trash', 19)}</button>
+          </div>`).join('')}</div>`;
+    }
+    function uniqueSlug(name, taken) {
+      const base = slugify(name);
+      let slug = base, n = 2;
+      while (taken.has(slug)) slug = `${base}-${n++}`;
+      return slug;
+    }
+    async function addMap(form) {
+      const name = form.name.value.trim();
+      if (!name) return;
+      const slug = uniqueSlug(name, new Set(S.data.maps.map((m) => m.slug)));
+      const sort_order = Math.max(0, ...S.data.maps.map((m) => m.sort_order)) + 10;
+      setBusy(form, true);
+      const data = await write((c) => c.from('maps').insert({ name, slug, sort_order }).select().single());
+      setBusy(form, false);
+      if (!data) return;
+      upsertLocal('maps', data);
+      Sheet.repaint(); render();
+      toast(`${name} ajoutée. Ajoute maintenant ses BP.`);
+    }
+    function videosOnMap(mapId) {
+      return (S.I.sitesByMap.get(mapId) || []).reduce((a, s) => a + (S.I.nSiteSide.get(`${s.id}|attack`) || 0) + (S.I.nSiteSide.get(`${s.id}|defense`) || 0), 0);
+    }
+    async function deleteMap(id, el) {
+      const m = S.I.mapById.get(id);
+      const n = videosOnMap(id);
+      if (!arm(el, n ? `Supprimer avec ${nfmt(n, 'vidéo', 'vidéos')}` : 'Confirmer')) return;
+      const data = await write((c) => c.from('maps').delete().eq('id', id).select('id'));
+      if (!data || (Array.isArray(data) && !data.length)) { disarm(el); if (data) toast('Suppression refusée.', 'err'); return; }
+      removeLocal('maps', id);
+      Sheet.repaint();
+      if (S.route.map === m?.slug) go({ map: null }, { replace: true }); else render();
+      toast(`${m?.name || 'Carte'} supprimée`);
+    }
+
+    // —— BP ——
+    function openManageSites() {
+      let mapId = curMap()?.id || S.data.maps[0]?.id;
+      if (!mapId) return toast('Ajoute d’abord une carte.', 'err');
+      Sheet.open({
+        title: 'BP', body: '<div data-root></div>',
+        onMount: (b, entry) => {
+          const root = b.querySelector('[data-root]');
+          entry.paint = () => paintManageSites(root, mapId);
+          root.addEventListener('change', (e) => { if (e.target.matches('[data-ms-map]')) { mapId = e.target.value; entry.paint(); } });
+          root.addEventListener('submit', (e) => { e.preventDefault(); addSite(e.target, mapId); });
+          entry.paint();
+        },
+      });
+    }
+    function floorOptions(v) {
+      return [...new Set([...FLOORS, v])].map((f) => `<option value="${esc(f)}"${f === v ? ' selected' : ''}>${esc(f)}</option>`).join('');
+    }
+    function paintManageSites(root, mapId) {
+      const sites = S.I.sitesByMap.get(mapId) || [];
+      root.innerHTML = `
+        <label class="fld"><span class="lbl">Carte</span><select class="select" data-ms-map>${S.data.maps.map((m) => `<option value="${m.id}"${m.id === mapId ? ' selected' : ''}>${esc(m.name)}</option>`).join('')}</select></label>
+        <div class="mlist">${sites.map((s) => `<div class="mrow">
+            <select class="select fl-sel" data-edit="sites.floor" data-id="${s.id}" aria-label="Étage">${floorOptions(s.floor)}</select>
+            <input class="input" value="${esc(s.name)}" maxlength="80" data-edit="sites.name" data-id="${s.id}" aria-label="Nom du BP" autocomplete="off">
+            <button class="icon-btn" data-act="site-delete" data-id="${s.id}" aria-label="Supprimer ${esc(s.name)}">${icon('trash', 19)}</button>
+          </div>`).join('') || '<p class="hint">Aucun BP sur cette carte pour l’instant.</p>'}</div>
+        <form class="inline-add top-gap" novalidate><select class="select fl-sel" name="floor" aria-label="Étage">${floorOptions('1F')}</select><input class="input" name="name" placeholder="Nouveau BP, ex. Kitchen / Dining" maxlength="80" autocomplete="off" required aria-label="Nom du nouveau BP"><button class="btn btn-primary" type="submit" aria-label="Ajouter le BP">${icon('plus', 18)}</button></form>`;
+    }
+    async function addSite(form, mapId) {
+      const name = form.name.value.trim();
+      if (!name) return;
+      const sites = S.I.sitesByMap.get(mapId) || [];
+      const sort_order = Math.max(0, ...sites.map((s) => s.sort_order)) + 1;
+      setBusy(form, true);
+      const data = await write((c) => c.from('sites').insert({ map_id: mapId, name, floor: form.floor.value, sort_order }).select().single());
+      setBusy(form, false);
+      if (!data) return;
+      upsertLocal('sites', data);
+      Sheet.repaint(); render();
+      toast(`BP ${name} ajouté`);
+    }
+    async function deleteSite(id, el) {
+      const s = S.I.siteById.get(id);
+      const n = (S.I.nSiteSide.get(`${id}|attack`) || 0) + (S.I.nSiteSide.get(`${id}|defense`) || 0);
+      if (!arm(el, n ? `Supprimer avec ${nfmt(n, 'vidéo', 'vidéos')}` : 'Confirmer')) return;
+      const data = await write((c) => c.from('sites').delete().eq('id', id).select('id'));
+      if (!data || (Array.isArray(data) && !data.length)) { disarm(el); if (data) toast('Suppression refusée.', 'err'); return; }
+      removeLocal('sites', id);
+      Sheet.repaint();
+      if (S.route.site === id) go({ site: null }, { replace: true }); else render();
+      toast(`BP ${s?.name || ''} supprimé`);
+    }
+
+    // —— Agents ——
+    function openManageOps() {
+      let side = S.route.side || 'attack', q = '';
+      Sheet.open({
+        title: 'Agents et logos', body: '<div data-root></div>',
+        onMount: (b, entry) => {
+          const root = b.querySelector('[data-root]');
+          entry.paint = () => paintManageOps(root, side, q);
+          root.addEventListener('click', (e) => { const t = e.target.closest('[data-mo-side]'); if (t) { side = t.dataset.moSide; entry.paint(); } });
+          root.addEventListener('input', (e) => { if (e.target.matches('[data-mo-q]')) { q = e.target.value; filterOps(root, q); } });
+          root.addEventListener('submit', (e) => { e.preventDefault(); addOp(e.target, side); });
+          entry.paint();
+        },
+      });
+    }
+    function filterOps(root, q) {
+      const k = compact(q);
+      $$('.mlist .mrow', root).forEach((row) => { row.hidden = Boolean(k) && !row.dataset.k.includes(k); });
+    }
+    function paintManageOps(root, side, q) {
+      const ops = S.data.operators.filter((o) => o.side === side);
+      const withIcon = S.data.operators.filter((o) => o.icon_url).length;
+      root.innerHTML = `
+        <div class="segc" role="tablist" aria-label="Camp">${['attack', 'defense'].map((k) => `<button type="button" role="tab" data-mo-side="${k}" data-side="${k}" aria-selected="${k === side}" aria-pressed="${k === side}">${SIDES[k].label}</button>`).join('')}</div>
+        <div class="tools top-gap">
+          <label class="btn btn-glass btn-sm file-btn">${icon('upload', 18)} Importer des logos<input type="file" accept="image/*" multiple data-bulk="operators"></label>
+          <button type="button" class="btn btn-glass btn-sm" data-act="ops-pattern">${icon('link', 18)} Modèle d’URL</button>
+        </div>
+        <p class="hint">${withIcon} agents sur ${S.data.operators.length} ont un logo. Touche un rond pour changer un logo, ou importe-les tous d’un coup : chaque fichier doit porter le nom de l’agent (thermite.png, jager.svg, solid-snake.webp…).</p>
+        <input class="input" type="search" placeholder="Rechercher un agent" data-mo-q value="${esc(q)}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Rechercher un agent">
+        <div class="mlist top-gap">${ops.map((o) => `<div class="mrow" data-k="${esc(compact(o.name))}">
+            <label class="op-up" aria-label="Changer le logo de ${esc(o.name)}">${opAvatar(o, 42)}<input type="file" accept="image/*" data-upload="operators" data-id="${o.id}"></label>
+            <input class="input" value="${esc(o.name)}" maxlength="40" data-edit="operators.name" data-id="${o.id}" aria-label="Nom de l’agent" autocomplete="off">
+            <button class="icon-btn" data-act="op-delete" data-id="${o.id}" aria-label="Supprimer ${esc(o.name)}">${icon('trash', 19)}</button>
+          </div>`).join('')}</div>
+        <form class="inline-add top-gap" novalidate><input class="input" name="name" placeholder="Nouvel agent en ${SIDES[side].label.toLowerCase()}" maxlength="40" autocomplete="off" required aria-label="Nom du nouvel agent"><button class="btn btn-primary" type="submit" aria-label="Ajouter l’agent">${icon('plus', 18)}</button></form>`;
+      filterOps(root, q);
+    }
+    async function addOp(form, side) {
+      const name = form.name.value.trim();
+      if (!name) return;
+      const slug = uniqueSlug(name, new Set(S.data.operators.map((o) => o.slug)));
+      setBusy(form, true);
+      const data = await write((c) => c.from('operators').insert({ name, slug, side }).select().single());
+      setBusy(form, false);
+      if (!data) return;
+      upsertLocal('operators', data);
+      Sheet.repaint();
+      toast(`${name} ajouté`);
+    }
+    async function deleteOp(id, el) {
+      const o = S.I.opById.get(id);
+      const n = S.data.strategies.filter((s) => s.operator_id === id).length;
+      if (!arm(el, n ? `Supprimer (${nfmt(n, 'vidéo passe', 'vidéos passent')} sans agent)` : 'Confirmer')) return;
+      const data = await write((c) => c.from('operators').delete().eq('id', id).select('id'));
+      if (!data || (Array.isArray(data) && !data.length)) { disarm(el); if (data) toast('Suppression refusée.', 'err'); return; }
+      removeLocal('operators', id);
+      Sheet.repaint(); render();
+      toast(`${o?.name || 'Agent'} supprimé`);
+    }
+    function openPattern() {
+      Sheet.open({
+        title: 'Modèle d’URL des logos',
+        body: `<p class="sheet-lede">Si tes logos sont déjà en ligne avec des noms réguliers, colle l’adresse d’un logo en remplaçant le nom de l’agent par <code>{slug}</code> (thermite, jager, solid-snake…) ou par <code>{name}</code>.</p>
+          <form novalidate>
+            <label class="fld"><span class="lbl">Modèle</span><input class="input" name="pattern" type="url" inputmode="url" placeholder="https://…/{slug}.png" autocomplete="off" autocapitalize="off" spellcheck="false" required></label>
+            <div class="pv" data-pv aria-live="polite"></div>
+            <p class="form-err" data-err hidden></p>
+            <button class="btn btn-primary btn-block" type="submit">Appliquer aux ${S.data.operators.length} agents</button>
+          </form>`,
+        onMount: (b, entry) => {
+          const f = b.querySelector('form');
+          const pv = b.querySelector('[data-pv]');
+          const build = (o) => f.pattern.value.trim().replaceAll('{slug}', o.slug).replaceAll('{name}', encodeURIComponent(o.name));
+          f.pattern.addEventListener('input', debounce(() => {
+            const ok = /\{(slug|name)\}/.test(f.pattern.value);
+            pv.innerHTML = ok ? S.data.operators.slice(0, 6).map((o) => opAvatar({ ...o, icon_url: build(o) }, 40)).join('') : '';
+          }, 250));
+          f.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const p = f.pattern.value.trim();
+            if (!/^https:\/\//.test(p) || !/\{(slug|name)\}/.test(p)) return formErr(f, 'Le modèle doit commencer par https:// et contenir {slug} ou {name}.');
+            formErr(f, ''); setBusy(f, true);
+            const rows = S.data.operators.map((o) => ({ id: o.id, slug: o.slug, name: o.name, side: o.side, icon_url: build(o) }));
+            const data = await write((c) => c.from('operators').upsert(rows, { onConflict: 'id' }).select());
+            setBusy(f, false);
+            if (!data) return;
+            mergeRows('operators', data);
+            Sheet.close(entry); Sheet.repaint(); render();
+            toast('Logos mis à jour');
+          });
+        },
+      });
+    }
+    function mergeRows(table, rows) {
+      for (const r of rows || []) {
+        const i = S.data[table].findIndex((x) => x.id === r.id);
+        if (i >= 0) S.data[table][i] = { ...S.data[table][i], ...r };
+      }
+      setData(S.data, true);
+    }
+
+    // —— Édition directe & images ——
+    async function inlineEdit(el) {
+      const [table, col] = el.dataset.edit.split('.');
+      const id = el.dataset.id;
+      const row = S.data[table]?.find((x) => x.id === id);
+      if (!row) return;
+      const value = el.type === 'checkbox' ? el.checked : el.value.trim();
+      const revert = () => { if (el.type === 'checkbox') el.checked = row[col]; else el.value = row[col]; };
+      if (value === '' || value === row[col]) { revert(); return; }
+      const data = await write((c) => c.from(table).update({ [col]: value }).eq('id', id).select().single());
+      if (!data) { revert(); return; }
+      upsertLocal(table, data);
+      render();
+      toast('Modification enregistrée');
+    }
+    async function uploadOne(el) {
+      const file = el.files?.[0];
+      el.value = '';
+      if (!file) return;
+      const table = el.dataset.upload, id = el.dataset.id;
+      const row = S.data[table]?.find((x) => x.id === id);
+      if (!row) return;
+      const col = table === 'maps' ? 'image_url' : 'icon_url';
+      toast('Envoi de l’image…', 'info', 1800);
+      try {
+        const url = await uploadImage(file, table, row.slug);
+        const data = await write((c) => c.from(table).update({ [col]: url }).eq('id', id).select().single());
+        if (!data) return;
+        upsertLocal(table, data);
+        Sheet.repaint(); render();
+        toast('Image mise à jour');
+      } catch (e) { toast(dbError(e), 'err', 4200); }
+    }
+    function matchFiles(files, items) {
+      const exact = new Map();
+      for (const it of items) { exact.set(compact(it.slug), it); exact.set(compact(it.name), it); }
+      return files.map((file) => {
+        const base = compact(file.name.replace(/\.[^.]+$/, ''));
+        let item = exact.get(base) || null;
+        if (!item) {
+          const cands = items.filter((x) => { const k = compact(x.slug); return k.length >= 3 && base.includes(k); });
+          item = cands.sort((a, b) => compact(b.slug).length - compact(a.slug).length)[0] || null;
+        }
+        return { file, item };
+      });
+    }
+    async function uploadBulk(el) {
+      const files = Array.from(el.files || []);
+      el.value = '';
+      if (!files.length) return;
+      const table = el.dataset.bulk;
+      const items = S.data[table];
+      const col = table === 'maps' ? 'image_url' : 'icon_url';
+      const matches = matchFiles(files, items);
+      const ok = matches.filter((m) => m.item);
+      const miss = matches.filter((m) => !m.item);
+      if (!ok.length) { toast(`Aucun fichier reconnu. Renomme-les comme ${table === 'maps' ? 'les cartes' : 'les agents'}.`, 'err', 4500); return; }
+      toast(`Envoi de ${nfmt(ok.length, 'image', 'images')}…`, 'info', 2200);
+      const queue = [...ok];
+      const done = [];
+      const worker = async () => {
+        while (queue.length) {
+          const m = queue.shift();
+          try { done.push({ item: m.item, url: await uploadImage(m.file, table, m.item.slug) }); } catch (e) { console.warn('upload', m.file.name, e); }
+        }
+      };
+      await Promise.all([worker(), worker(), worker()]);
+      if (done.length) {
+        const rows = done.map(({ item, url }) => (table === 'maps'
+          ? { id: item.id, slug: item.slug, name: item.name, [col]: url }
+          : { id: item.id, slug: item.slug, name: item.name, side: item.side, [col]: url }));
+        const data = await write((c) => c.from(table).upsert(rows, { onConflict: 'id' }).select());
+        if (data) { mergeRows(table, data); Sheet.repaint(); render(); }
+      }
+      const failed = ok.length - done.length;
+      const parts = [`${nfmt(done.length, 'image importée', 'images importées')}`];
+      if (miss.length) parts.push(`${nfmt(miss.length, 'fichier non reconnu', 'fichiers non reconnus')}`);
+      if (failed) parts.push(`${failed} en échec`);
+      toast(parts.join(', '), miss.length || failed ? 'err' : 'ok', 4500);
+    }
+
+    // —— Configuration locale ——
+    async function onSetupSubmit(e) {
+      e.preventDefault();
+      const f = e.target;
+      const url = f.url.value.trim().replace(/\/+$/, '').replace(/\/rest\/v1$/, '');
+      const key = f.key.value.trim();
+      if (!/^(https:\/\/[^/\s]+|http:\/\/(localhost|127\.0\.0\.1)(:\d+)?)$/.test(url)) return formErr(f, 'L’URL doit ressembler à https://xxxx.supabase.co');
+      if (!key) return formErr(f, 'Colle la clé publishable du projet.');
+      formErr(f, ''); setBusy(f, true);
+      try {
+        const res = await fetch(`${url}/rest/v1/maps?select=id&limit=1`, { headers: restHeaders(key) });
+        if (res.status === 401 || res.status === 403) throw new Error('Clé refusée : copie la clé publishable (ou l’ancienne clé anon).');
+        if (res.status === 404) throw new Error('Connexion réussie, mais les tables manquent : exécute supabase-setup.sql dans SQL Editor.');
+        if (!res.ok) throw new Error(`Réponse inattendue de Supabase (${res.status}).`);
+        LS.set(KEYS.config, { url, key });
+        location.reload();
+      } catch (err) {
+        formErr(f, /fetch|network|load failed/i.test(err.message) ? 'Adresse injoignable. Vérifie l’URL du projet.' : err.message);
+        setBusy(f, false);
+      }
+    }
+
+    // ─────────────── 11. Évènements ───────────────
+    const A = {
+      back: () => goBack(),
+      crumb: (el) => { const l = Number(el.dataset.level); go(l === 0 ? { map: null } : l === 1 ? { side: null } : { site: null }); },
+      'pick-map': (el) => go({ map: el.dataset.slug }),
+      'pick-side': (el) => go({ side: el.dataset.side }),
+      'pick-site': (el) => go({ site: el.dataset.id }),
+      recent: (el) => go({ map: el.dataset.map, side: el.dataset.side, site: el.dataset.site }),
+      play: (el) => openStrategy(el.dataset.id),
+      'f-op': (el) => { S.filter.op = el.dataset.id || null; render(); },
+      'f-cat': (el) => { S.filter.cat = el.dataset.cat || null; render(); },
+      'f-reset': () => { S.filter = { op: null, cat: null }; render(); },
+      reload: () => { Sheet.closeAll(); refresh({ manual: true }); },
+      account: () => openAccount(),
+      logout: async () => { Sheet.closeAll(); try { const c = await sb(); await c.auth.signOut(); } catch { /* ignore */ } await applySession(null); toast('Déconnecté'); },
+      'add-strat': () => { Sheet.closeAll(); openStratForm(); },
+      'strat-menu': (el) => openStratMenu(el.dataset.id),
+      'strat-edit': (el) => { const s = S.I.stratById.get(el.dataset.id); Sheet.closeAll(); if (s) openStratForm(s); },
+      'strat-pin': (el) => togglePin(el.dataset.id),
+      'strat-share': (el) => shareStrat(el.dataset.id),
+      'strat-delete': (el) => deleteStrat(el.dataset.id, el),
+      'manage-maps': () => { Sheet.closeAll(); openManageMaps(); },
+      'manage-sites': () => { Sheet.closeAll(); openManageSites(); },
+      'manage-ops': () => { Sheet.closeAll(); openManageOps(); },
+      'map-delete': (el) => deleteMap(el.dataset.id, el),
+      'site-delete': (el) => deleteSite(el.dataset.id, el),
+      'op-delete': (el) => deleteOp(el.dataset.id, el),
+      'ops-pattern': () => openPattern(),
+      'sheet-close': () => Sheet.close(),
+      'pl-close': () => closePlayer(),
+      'pl-prev': () => stepPlayer(-1),
+      'pl-next': () => stepPlayer(1),
+      'pl-rate': (el) => P.setRate(Number(el.dataset.rate)),
+      'pl-loop': () => P.toggleLoop(),
+      'pl-sound': () => P.toggleSound(),
+      'pl-unmute': () => P.toggleSound(),
+      'config-reset': () => { LS.del(KEYS.config); location.reload(); },
+    };
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('[data-act]');
+      if (!el) return;
+      const fn = A[el.dataset.act];
+      if (!fn) return;
+      e.preventDefault();
+      fn(el, e);
+    });
+    document.addEventListener('change', (e) => {
+      const el = e.target;
+      if (el.matches('[data-edit]')) inlineEdit(el);
+      else if (el.matches('input[type="file"][data-upload]')) uploadOne(el);
+      else if (el.matches('input[type="file"][data-bulk]')) uploadBulk(el);
+    });
+    document.addEventListener('error', (e) => {
+      const img = e.target;
+      if (!(img instanceof HTMLImageElement)) return;
+      if (img.dataset.fallback != null) { const s = document.createElement('span'); s.className = 'ini'; s.textContent = img.dataset.fallback; img.replaceWith(s); }
+      else if (img.classList.contains('cover')) img.remove();
+    }, true);
+    document.addEventListener('keydown', (e) => {
+      const t = e.target;
+      const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable;
+      if ((e.key === 'Enter' || e.key === ' ') && !typing && t.matches?.('[role="button"][data-act]') && e.target === document.activeElement) { e.preventDefault(); t.click(); return; }
+      if (e.key === 'Escape') {
+        if (Sheet.top) { e.preventDefault(); Sheet.close(); return; }
+        if (S.route.video) { e.preventDefault(); closePlayer(); return; }
+        if (!typing) goBack();
+        return;
+      }
+      if (typing || e.metaKey || e.ctrlKey || e.altKey || Sheet.top || S.status !== 'ready') return;
+      if (S.route.video) {
+        const k = e.key.toLowerCase();
+        if (e.key === 'ArrowRight') { e.preventDefault(); stepPlayer(1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); stepPlayer(-1); }
+        else if (k === 'l') P.toggleLoop();
+        else if (k === 'm') P.toggleSound();
+        else if (e.key === '1') P.setRate(0.25);
+        else if (e.key === '2') P.setRate(0.5);
+        else if (e.key === '3') P.setRate(1);
+        else if (e.key === ' ') { e.preventDefault(); P.togglePlay(); }
+        return;
+      }
+      if (e.key === 'Backspace') { e.preventDefault(); goBack(); return; }
+      const d = depthOf(S.route);
+      if (d === 1) { const k = e.key.toLowerCase(); if (k === 'a') go({ side: 'attack' }); else if (k === 'd') go({ side: 'defense' }); return; }
+      if (/^[1-9]$/.test(e.key)) {
+        const i = Number(e.key) - 1;
+        if (d === 2) { const s = sitesOf(curMap())[i]; if (s) go({ site: s.id }); }
+        else if (d === 3) { const s = filtered(stratsAt())[i]; if (s) openStrategy(s.id); }
+        return;
+      }
+      if (d === 0 && e.key.length === 1 && /\S/.test(e.key)) $('#map-q')?.focus();
+    });
+
+    // gestes tactiles : glisser vers la droite = retour ; dans le lecteur, bas = fermer, gauche/droite = vidéo suivante/précédente
+    let touch = null;
+    document.addEventListener('touchstart', (e) => {
+      if (e.touches.length !== 1) { touch = null; return; }
+      const t = e.touches[0];
+      const tgt = e.target;
+      if (tgt.closest('.hscroll, input, textarea, select, .layer, .stage, .pl-notes, .picker')) { touch = null; return; }
+      touch = { x: t.clientX, y: t.clientY, at: Date.now(), player: Boolean(tgt.closest('.player')) };
+      const card = tgt.closest('.card');
+      if (card) P.warm();
+    }, { passive: true });
+    document.addEventListener('touchend', (e) => {
+      if (!touch) return;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touch.x, dy = t.clientY - touch.y;
+      const s = touch;
+      touch = null;
+      if (Date.now() - s.at > 700) return;
+      if (s.player) {
+        if (dy > 90 && Math.abs(dx) < 80) closePlayer();
+        else if (Math.abs(dx) > 70 && Math.abs(dy) < 50) stepPlayer(dx < 0 ? 1 : -1);
+        return;
+      }
+      if (Sheet.top) return;
+      if (dx > 80 && Math.abs(dy) < 60 && (isStandalone() || s.x > 24)) goBack();
+    }, { passive: true });
+    // survol (souris) : on prépare la vidéo avant le clic
+    let hoverTimer = 0;
+    document.addEventListener('pointerover', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      const card = e.target.closest?.('.card');
+      if (!card) return;
+      clearTimeout(hoverTimer);
+      hoverTimer = setTimeout(() => { const s = S.I?.stratById.get(card.dataset.id); if (s) P.prefetch(s); }, 140);
+    });
+
+    // ─────────────── 12. Démarrage ───────────────
+    async function refresh({ manual = false } = {}) {
+      if (!CFG.ok || S.refreshing) return;
+      S.refreshing = true;
+      try {
+        const raw = await fetchData();
+        const json = JSON.stringify(raw);
+        const changed = json !== S.rawJson;
+        const wasReady = S.status === 'ready';
+        const wasStale = S.stale;
+        S.rawJson = json; S.fetchedAt = Date.now(); S.stale = false; S.error = null;
+        if (changed) setData(raw, true);
+        S.status = 'ready';
+        if (!wasReady || changed || wasStale) applyRoute({ force: true });
+        if (manual) toast('Données à jour');
+      } catch (e) {
+        S.error = loadError(e);
+        if (S.status === 'ready') S.stale = true; else S.status = 'error';
+        render();
+        if (manual) toast(S.error, 'err', 4500);
+      } finally { S.refreshing = false; }
+    }
+    function paintStatic() {
+      $('#bar-back').innerHTML = icon('chevron-left', 22);
+      $('#bar-account').innerHTML = icon('person', 21);
+      $('#pl-close').innerHTML = icon('chevron-down', 22);
+      $$('[data-icon]').forEach((b) => { b.innerHTML = icon(b.dataset.icon, 21); });
+    }
+    function registerSW() {
+      if (!('serviceWorker' in navigator)) return;
+      const local = ['localhost', '127.0.0.1'].includes(location.hostname);
+      if (location.protocol !== 'https:' && !local) return;
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+    function boot() {
+      try { history.scrollRestoration = 'manual'; } catch { /* ignore */ }
+      if (!history.state || !('from' in history.state)) history.replaceState({ from: null }, '', location.href);
+      paintStatic();
+      P.init();
+      window.addEventListener('popstate', () => { if (Sheet.top) Sheet.closeAll(); applyRoute(); });
+      if (!CFG.ok) { document.documentElement.classList.add('no-config'); S.status = 'setup'; render(); registerSW(); return; }
+      const cache = LS.get(dataKey());
+      if (cache?.data?.maps) { setData(cache.data); S.status = 'ready'; } else S.status = 'loading';
+      applyRoute({ force: true });
+      refresh();
+      initAuth();
+      registerSW();
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && Date.now() - S.fetchedAt > 60000) refresh(); });
+    }
+    boot();
+  </script>
+</body>
+</html>
